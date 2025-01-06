@@ -5,6 +5,7 @@ dotenv.config();
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
+const userRoutes = require('./routes/user.routes');
 
 // Initialize the app
 const app = express();
@@ -12,6 +13,8 @@ const app = express();
 // Use middlewares
 app.use(cors());
 app.use(express.json()); // Enable JSON parsing for request bodies
+app.use(express.urlencoded({ extended: true })); // Enable URL-encoded parsing for request bodies
+app.use('/users', userRoutes);
 
 // Create server instance
 const server = http.createServer(app);
