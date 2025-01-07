@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost:27017/uber-db';
+const MONGODB_URL = process.env.MONGODB_URL;
 
 const options = {
     connectTimeoutMS: 10000,

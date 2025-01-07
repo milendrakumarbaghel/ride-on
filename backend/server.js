@@ -10,14 +10,13 @@ const userRoutes = require('./routes/user.routes');
 // Initialize the app
 const app = express();
 
+// Create server instance
+const server = http.createServer(app);
+
 // Use middlewares
 app.use(cors());
 app.use(express.json()); // Enable JSON parsing for request bodies
 app.use(express.urlencoded({ extended: true })); // Enable URL-encoded parsing for request bodies
-app.use('/users', userRoutes);
-
-// Create server instance
-const server = http.createServer(app);
 
 // Environment variables
 const PORT = process.env.PORT || 5000;
@@ -27,9 +26,11 @@ app.get('/', (req, res) => {
     res.send('Hi there! Welcome to the server.');
 });
 
+app.use('/users', userRoutes);
+
 // Connecting with database
-const dbConnect = require('./db/database');
-dbConnect();
+const connectToDatabase = require('./db/database');
+connectToDatabase();
 
 // Start the server
 server.listen(PORT, () => {
