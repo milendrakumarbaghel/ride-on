@@ -52,3 +52,40 @@ Registers a new user with the provided information.
   }
 }
 ```
+
+## /users/login Endpoint
+## Description
+Authenticate a user with valid credentials.
+
+## HTTP Method
+`POST`
+
+## Endpoint
+`/users/login`
+
+## Request Body
+- email (required, valid email)
+- password (required, string, min length: 6)
+
+## Success Response
+- 200 OK: Returns a JSON with a token and user data.
+
+## Error Response
+- 400 Bad Request: Returns validation errors.
+- 401 Unauthorized: Invalid credentials.
+
+## Example Response
+```json
+{
+  "token": "your_jwt_token_here",
+  "user": {
+    "fullName": {
+      "firstName": "user_first_name",
+      "lastName": "user_last_name"
+    },
+    "email": "user@example.com",
+    "password": "xyz",
+    "_id": "12345abcd"
+  }
+}
+```
