@@ -48,7 +48,7 @@ Registers a new user with the provided information.
     },
     "email": "john.doe@example.com"
     "password": "xyz",
-    "_id": "677c1ff92cad2ccbf1b38b12"
+    "_id": "12345abcd"
   }
 }
 ```
