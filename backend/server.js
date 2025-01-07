@@ -9,6 +9,7 @@ const userRoutes = require('./routes/user.routes');
 
 // Initialize the app
 const app = express();
+const cookieParser = require('cookie-parser');
 
 // Create server instance
 const server = http.createServer(app);
@@ -17,6 +18,7 @@ const server = http.createServer(app);
 app.use(cors());
 app.use(express.json()); // Enable JSON parsing for request bodies
 app.use(express.urlencoded({ extended: true })); // Enable URL-encoded parsing for request bodies
+app.use(cookieParser());
 
 // Environment variables
 const PORT = process.env.PORT || 5000;
