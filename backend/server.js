@@ -6,6 +6,7 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const userRoutes = require('./routes/user.routes');
+const captainRoutes = require('./routes/captain.routes');
 
 // Initialize the app
 const app = express();
@@ -29,6 +30,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', userRoutes);
+app.use('/captains', captainRoutes);
 
 // Connecting with database
 const connectToDatabase = require('./db/database');
