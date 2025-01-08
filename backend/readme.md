@@ -89,3 +89,64 @@ Authenticate a user with valid credentials.
   }
 }
 ```
+
+## /users/profile Endpoint
+
+## Description
+Get the authenticated user's profile information.
+
+## HTTP Method
+`GET`
+
+## Endpoint
+`/users/profile`
+
+## Headers
+- Authorization: Bearer {token}
+
+## Success Response
+- 200 OK: Returns user profile data.
+
+## Error Response
+- 401 Unauthorized: Invalid or missing token.
+
+## Example Response
+```json
+{
+  "user": {
+    "fullName": {
+      "firstName": "user_first_name",
+      "lastName": "user_last_name"
+    },
+    "email": "user@example.com",
+    "_id": "12345abcd"
+  }
+}
+```
+
+## /users/logout Endpoint
+
+## Description
+Logs out the current user by blacklisting their token.
+
+## HTTP Method
+`GET`
+
+## Endpoint
+`/users/logout`
+
+## Headers
+- Authorization: Bearer {token}
+
+## Success Response
+- 200 OK: User successfully logged out.
+
+## Error Response
+- 401 Unauthorized: Invalid or missing token.
+
+## Example Response
+```json
+{
+  "message": "Logged out successfully"
+}
+```
