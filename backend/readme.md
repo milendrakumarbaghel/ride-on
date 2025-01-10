@@ -217,7 +217,7 @@ Registers a new captain with the provided information including vehicle details.
             "vehicleType": "car"
         },
         "status": "inactive",
-        "_id": "12345abcd"
+        "_id": "12345abcde"
     }
 }
 ```
