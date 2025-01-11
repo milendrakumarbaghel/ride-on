@@ -221,3 +221,123 @@ Registers a new captain with the provided information including vehicle details.
     }
 }
 ```
+
+## /captains/login Endpoint
+
+## Description
+Authenticate a captain with valid credentials.
+
+## HTTP Method
+`POST`
+
+## Endpoint
+`/captains/login`
+
+## Request Body
+```json
+{
+    "email": "john.driver@example.com",     // required, valid email
+    "password": "secure123"                 // required, min length: 5
+}
+```
+
+## Success Response
+- 200 OK: Returns a JSON with a token and captain data.
+
+## Error Response
+- 400 Bad Request: Returns validation errors
+- 401 Unauthorized: Invalid credentials
+
+## Example Response
+```json
+{
+    "token": "your_jwt_token_here",
+    "captain": {
+        "fullName": {
+            "firstName": "John",
+            "lastName": "Driver"
+        },
+        "email": "john.driver@example.com",
+        "vehicle": {
+            "color": "Black",
+            "plate": "ABC123",
+            "capacity": 4,
+            "vehicleType": "car"
+        },
+        "status": "inactive",
+        "_id": "12345abcde"
+    }
+}
+```
+
+## /captains/profile Endpoint
+
+## Description
+Get the authenticated captain's profile information.
+
+## HTTP Method
+`GET`
+
+## Endpoint
+`/captains/profile`
+
+## Headers
+- Authorization: Bearer {token}
+
+## Success Response
+- 200 OK: Returns captain profile data
+
+## Error Response
+- 401 Unauthorized: Invalid or missing token
+
+## Example Response
+```json
+{
+    "captain": {
+        "fullName": {
+            "firstName": "John",
+            "lastName": "Driver"
+        },
+        "email": "john.driver@example.com",
+        "vehicle": {
+            "color": "Black",
+            "plate": "ABC123",
+            "capacity": 4,
+            "vehicleType": "car"
+        },
+        "status": "inactive",
+        "location": {                    // optional, present if captain has set location
+            "lat": 12.9716,
+            "lng": 77.5946
+        },
+        "_id": "12345abcde"
+    }
+}
+```
+
+## /captains/logout Endpoint
+
+## Description
+Logs out the current captain by blacklisting their token.
+
+## HTTP Method
+`GET`
+
+## Endpoint
+`/captains/logout`
+
+## Headers
+- Authorization: Bearer {token}
+
+## Success Response
+- 200 OK: Captain successfully logged out
+
+## Error Response
+- 401 Unauthorized: Invalid or missing token
+
+## Example Response
+```json
+{
+    "message": "Captain logged out successfully"
+}
+```
