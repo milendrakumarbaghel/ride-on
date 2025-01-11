@@ -21,7 +21,7 @@ const UserLogin = () => {
     }
 
   return (
-    <div className='bg-white h-screen p-7 w-screen mt-7 flex flex-col justify-between'>
+    <div className='h-screen p-7 flex flex-col justify-between'>
         <div>
             <img src='https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png' alt='uber-logo' className='w-16 mb-12'/>
 
@@ -71,8 +71,8 @@ const UserLogin = () => {
 
         <div>
             <Link
-                type='submit'
-                className='flex items-center justify-center bg-[#10b461] text-white font-semibold mb-7 rounded px-4 py-2 border w-full text-lg placeholder:text-base'>
+                to='/captain-login'
+                className='flex items-center justify-center bg-[#10b461] text-white font-semibold mb-5 rounded px-4 py-2 border w-full text-lg placeholder:text-base'>
                 Sign in as Captain
             </Link>
         </div>
