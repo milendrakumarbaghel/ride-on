@@ -8,7 +8,8 @@ const UserLogin = () => {
     const [password, setPassword] = useState('');
     const [userData, setUserData] = useState({});
 
-    const submitHandler = () => {
+    const submitHandler = (e) => {
+        e.preventDefault();
         console.log(email, password);
         setUserData({
             email: email,
@@ -26,8 +27,7 @@ const UserLogin = () => {
             <img src='https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png' alt='uber-logo' className='w-16 mb-12'/>
 
             <form onSubmit={(e) => {
-                e.preventDefault();
-                submitHandler();
+                submitHandler(e);
             }}>
                 <h3 className='text-lg font-medium mb-2'>Enter your email</h3>
                 <input
