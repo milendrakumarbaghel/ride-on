@@ -12,7 +12,7 @@ const UserSignup = () => {
     const submitHandler = (e) => {
         e.preventDefault();
         setUserData({
-            userName:{
+            fullName:{
                 firstName: firstName,
                 lastName: lastName
             },
@@ -89,7 +89,7 @@ const UserSignup = () => {
                 <button
                     type='submit'
                     className='bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2 border w-full text-lg placeholder:text-lg'>
-                    Login
+                    Create new Account
                 </button>
             </form>
             <p className='text-center'>
@@ -103,7 +103,7 @@ const UserSignup = () => {
         </div>
 
         <div>
-            <p className='text-[10px] leading-tight'>By proceeding, you consent to get emails, including by automated means, from Uber and its affiliates to the email provided.</p>
+            <p className='text-[10px] leading-tight'>This site is protected by reCAPTCHA and the <span className='underline'>Google Privacy Policy</span> and <span className='underline'>Terms of Service</span> apply.</p>
         </div>
     </div>
   )
