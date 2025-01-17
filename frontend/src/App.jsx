@@ -7,6 +7,7 @@ import UserSignup from './pages/UserSignup';
 import CaptainLogin from './pages/CaptainLogin';
 import CaptainSignup from './pages/CaptainSignup';
 import UserProtecteWrapper from './pages/UserProtecteWrapper';
+import CaptainProtecteWrapper from './pages/CaptainProtecteWrapper';
 import UserLogout from './pages/UserLogout';
 import CaptainHome from './pages/CaptainHome';
 
@@ -36,7 +37,13 @@ const App = () => {
                 }
             />
 
-            <Route path='/captain-home' element={<CaptainHome />} />
+            <Route path='/captain-home'
+                element={
+                    <CaptainProtecteWrapper>
+                        <CaptainHome />
+                    </CaptainProtecteWrapper>
+                }
+            />
         </Routes>
     </>
   )
