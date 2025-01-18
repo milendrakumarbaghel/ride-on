@@ -10,7 +10,7 @@ const UserProtecteWrapper = ({children}) => {
     const { user, setUser } = useContext(UserDataContext);
     const [ isLoading, setIsLoading ] = useState(true);
 
-    console.log(token)
+    // console.log(token)   
 
     useEffect(() => {
         if (!token) {
