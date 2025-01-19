@@ -5,6 +5,8 @@ import { useGSAP } from "@gsap/react";
 import gsap from 'gsap'
 import { useRef } from 'react'
 import 'remixicon/fonts/remixicon.css'
+import LocationSearchPanel from '../components/LocationSearchPanel';
+import VehiclePanel from '../components/VehiclePanel';
 
 
 const Home = () => {
@@ -12,8 +14,16 @@ const Home = () => {
   const [pickup, setPickup] = useState('')
   const [dropoff, setDropoff] = useState('')
   const [panelOpen, setPanelOpen] = useState(false)
+  const [ vehicleType, setVehicleType ] = useState(null)
+  const [ fare, setFare ] = useState({})
+  const [ confirmRidePanel, setConfirmRidePanel ] = useState(false)
+  const [ vehiclePanel, setVehiclePanel ] = useState(false)
+
+
+
   const panelRef = useRef(null)
   const panelCloseRef = useRef(null)
+  const vehiclePanelRef = useRef(null)
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -24,6 +34,7 @@ const Home = () => {
     if(panelOpen) {
       gsap.to(panelRef.current, {
         height: '70%',
+        padding: 24,
         // opacity: 1
       })
 
@@ -41,8 +52,20 @@ const Home = () => {
     }
   }, [panelOpen])
 
+  useGSAP(function(){
+    if(vehiclePanel) {
+      gsap.to(vehiclePanelRef.current, {
+        transform: 'translateY(0)'
+      })
+    } else {
+      gsap.to(vehiclePanelRef.current, {
+        transform: 'translateY(100%)'
+      })
+    }
+  }, [vehiclePanel])
+
   return (
-    <div className='h-screen relative'>
+    <div className='h-screen relative overflow-hidden'>
       <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="uber-logo" className="w-16 absolute left-5 top-5" />
 
       <div className='h-screen w-screen'>
@@ -98,8 +121,17 @@ const Home = () => {
             </form>
           </div>
 
-          <div ref={panelRef} className='bg-red-500 h-0'>
+          <div ref={panelRef} className='bg-white h-0'>
+                <LocationSearchPanel setPanelOpen={setPanelOpen} setVehiclePanel = {setVehiclePanel} />
           </div>
+      </div>
+
+      <div ref={vehiclePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12'>
+        <VehiclePanel
+          selectVehicle={setVehicleType}
+          fare={fare} setConfirmRidePanel={setConfirmRidePanel}
+          setVehiclePanel={setVehiclePanel}
+        />
       </div>
     </div>
   )
