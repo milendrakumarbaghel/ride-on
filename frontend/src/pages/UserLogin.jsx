@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, replace } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useContext } from 'react';
 import { UserDataContext } from '../context/UserContext';
@@ -15,10 +15,16 @@ const UserLogin = () => {
     const { user, setUser } = useContext(UserDataContext);
 
     useEffect(() => {
-        if (localStorage.getItem('token')) {
-            navigate('/home');
+        const token = localStorage.getItem('token');
+        const user = localStorage.getItem('user');
+        const captain = localStorage.getItem('captain');
+
+        if (token && user && !captain) {
+            navigate('/home', { replace: true });
+        } else if (token && captain && !user) {
+            navigate('/captain-home', { replace: true });
         }
-    }, [navigate]); 
+    }, [navigate]);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -31,16 +37,20 @@ const UserLogin = () => {
 
         try {
             const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/login`, userData);
-            const data = response.data;
-            setUser(data.user);
-            localStorage.setItem('token', data.token);
-            navigate('/home');
-        } catch (error) {
-            console.log(error);
-        }
 
-        setEmail('');
-        setPassword('');
+            if (response.status === 200) {
+                const data = response.data;
+                setUser(data.user);
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                navigate('/home', { replace: true });
+
+                setEmail('');
+                setPassword('');
+            }
+        } catch (error) {
+            console.log("Login failed", error);
+        }
     }
 
     return (

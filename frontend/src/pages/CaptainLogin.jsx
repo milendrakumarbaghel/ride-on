@@ -14,8 +14,14 @@ const CaptainLogin = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(localStorage.getItem('token')) {
-            navigate('/captain-home');
+        const token = localStorage.getItem('token');
+        const user = localStorage.getItem('user');
+        const captain = localStorage.getItem('captain');
+
+        if (token && user && !captain) {
+            navigate('/home', { replace: true });
+        } else if (token && captain && !user) {
+            navigate('/captain-home', { replace: true });
         }
     }, [navigate]);
 
@@ -27,19 +33,23 @@ const CaptainLogin = () => {
             password: password
         });
 
-        const response = axios.post(`${import.meta.env.VITE_BASE_URL}/captains/login`, captainData)
-            .then((response) => {
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/login`, captainData)
+
+            if (response.status === 200) {
                 const data = response.data;
                 setCaptain(data.captain);
                 localStorage.setItem('token', data.token);
-                navigate('/captain-home');
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+                localStorage.setItem('captain', JSON.stringify(data.captain));
+                navigate('/captain-home', { replace: true });
+            }
 
-        setEmail('');
-        setPassword('');
+            setEmail('');
+            setPassword('');
+        } catch (error) {
+            console.error("Login failed:", error);
+            // You might want to show an error message to the user here
+        }
     }
 
     return (

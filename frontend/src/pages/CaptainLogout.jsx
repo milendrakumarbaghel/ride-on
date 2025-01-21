@@ -16,7 +16,8 @@ const CaptainLogout = () => {
         .then((response) => {
             if(response.status === 200) {
                 localStorage.removeItem('token');
-                navigate('/login');
+                localStorage.removeItem('captain');
+                navigate('/captain-login');
             }
         })
         .catch((error) => {
