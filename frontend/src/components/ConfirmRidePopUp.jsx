@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const ConfirmRidePopUp = (props) => {
     return (
@@ -7,7 +8,7 @@ const ConfirmRidePopUp = (props) => {
                 // props.setConfirmRidePopupPanel(false)
                 props.setRidePopupPanel(false)
             }}><i className="text-3xl text-gray-200 ri-arrow-down-wide-line"></i></h5>
-            <h3 className='text-2xl font-semibold mb-5'>New Ride Available!</h3>
+            <h3 className='text-2xl font-semibold mb-5'>Confirm this ride to Start</h3>
 
             <div className='flex items-center justify-between mt-4 p-3 bg-yellow-400 rounded-lg'>
                 <div className='flex items-center gap-3'>
@@ -49,13 +50,22 @@ const ConfirmRidePopUp = (props) => {
                     </div>
 
                 </div>
-                <button onClick={() => {
+                <Link
+                    to='/captain-riding'
+                    className='w-full mt-5 bg-green-600 flex justify-center text-white font-semibold p-3 rounded-lg'
+                >
+                    Confirm
+                </Link>
 
-                }} className='w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg'>Confirm</button>
-
-                <button onClick={() => {
-                    props.setConfirmRidePopupPanel(false)
-                }} className='w-full mt-1 bg-red-500 text-white font-semibold p-2 rounded-lg'>Cancel</button>
+                <button
+                    onClick={() => {
+                        props.setConfirmRidePopupPanel(false)
+                        props.setRidePopupPanel(false)
+                    }}
+                    className='w-full mt-1 bg-red-500 text-white font-semibold p-3 rounded-lg'
+                >
+                    Cancel
+                </button>
             </div>
         </div>
     )
