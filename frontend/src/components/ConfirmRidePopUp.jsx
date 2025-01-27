@@ -1,7 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 const ConfirmRidePopUp = (props) => {
+    const [otp, setOtp] = useState('')
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+    }
+
     return (
         <div className='p-3 h-screen'>
             <h5 className='p-1 text-center w-[93%] absolute top-0' onClick={() => {
@@ -57,6 +64,8 @@ const ConfirmRidePopUp = (props) => {
                     }}>
 
                         <input
+                            value={otp}
+                            onChange={(e) => setOtp(e.target.value)}
                             type="text"
                             placeholder='Enter OTP'
                             className='bg-[#eee] px-6 py-4 font-mono text-lg rounded-lg w-full mt-5'
@@ -64,7 +73,7 @@ const ConfirmRidePopUp = (props) => {
 
                         <Link
                             to='/captain-riding'
-                            className='w-full mt-5 bg-green-600 flex justify-center text-white font-semibold p-3 rounded-lg'
+                            className='w-full mt-5 bg-green-600 text-lg flex justify-center text-white font-semibold p-3 rounded-lg'
                         >
                             Confirm
                         </Link>
@@ -74,7 +83,7 @@ const ConfirmRidePopUp = (props) => {
                                 props.setConfirmRidePopupPanel(false)
                                 props.setRidePopupPanel(false)
                             }}
-                            className='w-full mt-2 bg-red-500 text-white font-semibold p-3 rounded-lg'
+                            className='w-full mt-2 bg-red-500 text-lg text-white font-semibold p-3 rounded-lg'
                         >
                             Cancel
                         </button>
