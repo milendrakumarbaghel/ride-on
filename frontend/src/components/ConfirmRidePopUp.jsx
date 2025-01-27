@@ -50,22 +50,37 @@ const ConfirmRidePopUp = (props) => {
                     </div>
 
                 </div>
-                <Link
-                    to='/captain-riding'
-                    className='w-full mt-5 bg-green-600 flex justify-center text-white font-semibold p-3 rounded-lg'
-                >
-                    Confirm
-                </Link>
 
-                <button
-                    onClick={() => {
-                        props.setConfirmRidePopupPanel(false)
-                        props.setRidePopupPanel(false)
-                    }}
-                    className='w-full mt-1 bg-red-500 text-white font-semibold p-3 rounded-lg'
-                >
-                    Cancel
-                </button>
+                <div className='mt-6 w-full'>
+                    <form onSubmit={() => {
+                        submitHandler(e);
+                    }}>
+
+                        <input
+                            type="text"
+                            placeholder='Enter OTP'
+                            className='bg-[#eee] px-6 py-4 font-mono text-lg rounded-lg w-full mt-5'
+                        />
+
+                        <Link
+                            to='/captain-riding'
+                            className='w-full mt-5 bg-green-600 flex justify-center text-white font-semibold p-3 rounded-lg'
+                        >
+                            Confirm
+                        </Link>
+
+                        <button
+                            onClick={() => {
+                                props.setConfirmRidePopupPanel(false)
+                                props.setRidePopupPanel(false)
+                            }}
+                            className='w-full mt-2 bg-red-500 text-white font-semibold p-3 rounded-lg'
+                        >
+                            Cancel
+                        </button>
+                    </form>
+                </div>
+
             </div>
         </div>
     )
