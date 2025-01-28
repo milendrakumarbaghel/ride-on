@@ -30,9 +30,9 @@ app.get('/', (req, res) => {
     res.send('Hi there! Welcome to the server.');
 });
 
-app.use('/maps', mapsRoutes); 
 app.use('/users', userRoutes);
 app.use('/captains', captainRoutes);
+app.use('/maps', mapsRoutes); 
 
 // Connecting with database
 const connectToDatabase = require('./db/database');
