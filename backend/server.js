@@ -7,6 +7,7 @@ const cors = require('cors');
 const http = require('http');
 const userRoutes = require('./routes/user.routes');
 const captainRoutes = require('./routes/captain.routes');
+const mapsRoutes = require('./routes/maps.routes');
 
 // Initialize the app
 const app = express();
@@ -29,6 +30,7 @@ app.get('/', (req, res) => {
     res.send('Hi there! Welcome to the server.');
 });
 
+app.use('/maps', mapsRoutes); 
 app.use('/users', userRoutes);
 app.use('/captains', captainRoutes);
 
