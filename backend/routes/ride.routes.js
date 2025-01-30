@@ -7,7 +7,6 @@ const rideController = require('../controllers/ride.controller');
 
 router.post('/create-ride',
     authMiddleware.authUser,
-    // body('userId').isString().isLength({ min: 24, max: 24 }).withMessage('Invalid user id'),
     body('pickup').isString().isLength({ min: 3 }).withMessage('Invalid pickup address'),
     body('destination').isString().isLength({ min: 3 }).withMessage('Invalid destination address'),
     body('vehicleType').isString().isIn(['auto', 'motorcycle', 'car']).withMessage('Invalid vehicle type'),
