@@ -147,7 +147,7 @@ Logs out the current user by blacklisting their token.
 ## Example Response
 ```json
 {
-  "message": "Logged out successfully"
+    "message": "Logged out successfully"
 }
 ```
 
@@ -339,5 +339,164 @@ Logs out the current captain by blacklisting their token.
 ```json
 {
     "message": "Captain logged out successfully"
+}
+```
+
+## /maps/get-coordinates Endpoint
+
+## Description
+Gets the geographic coordinates (latitude and longitude) for a given address.
+
+## HTTP Method
+`GET`
+
+## Endpoint
+`/maps/get-coordinates`
+
+## Query Parameters
+- `address` (required, string): The address to geocode.
+
+## Success Response
+- 200 OK: Returns the coordinates of the address.
+
+## Error Response
+- 400 Bad Request: Returns validation errors if the address is missing or invalid.
+- 404 Not Found: If the coordinates cannot be found.
+
+## Example Request
+```
+GET /maps/get-coordinates?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA
+```
+
+## Example Response
+```json
+{
+  "ltd": 37.4224764,
+  "lng": -122.0842499
+}
+```
+
+## /maps/get-distance-time Endpoint
+
+## Description
+Calculates the distance and time between an origin and a destination.
+
+## HTTP Method
+`GET`
+
+## Endpoint
+`/maps/get-distance-time`
+
+## Query Parameters
+- `origin` (required, string): The starting location.
+- `destination` (required, string): The ending location.
+
+## Success Response
+- 200 OK: Returns distance and time information.
+
+## Error Response
+- 400 Bad Request: Returns validation errors if origin or destination is missing or invalid.
+- 500 Internal Server Error: If unable to fetch distance and time.
+
+## Example Request
+```
+GET /maps/get-distance-time?origin=New+York,NY&destination=Los+Angeles,CA
+```
+
+## Example Response
+```json
+{
+  "distance": {
+    "text": "2,789 mi",
+    "value": 4483592
+  },
+  "duration": {
+    "text": "1 day 17 hours",
+    "value": 150120
+  },
+  "status": "OK"
+}
+```
+
+## /maps/get-suggestions Endpoint
+
+## Description
+Provides autocomplete suggestions for location inputs based on user input.
+
+## HTTP Method
+`GET`
+
+## Endpoint
+`/maps/get-suggestions`
+
+## Query Parameters
+- `input` (required, string): The partial input to autocomplete.
+
+## Success Response
+- 200 OK: Returns a list of suggestion predictions.
+
+## Error Response
+- 400 Bad Request: Returns validation errors if the input is missing or invalid.
+- 500 Internal Server Error: If unable to fetch suggestions.
+
+## Example Request
+```
+GET /maps/get-suggestions?input=1600+Amphitheatre
+```
+
+## Example Response
+```json
+[
+  {
+    "description": "1600 Amphitheatre Parkway, Mountain View, CA, USA",
+    "place_id": "ChIJ2eUgeAK6j4ARbn5u_wAGqWA",
+    // other prediction fields
+  },
+  // more suggestions...
+]
+```
+
+## /rides/create Endpoint
+
+## Description
+Creates a new ride request with the specified pickup, destination, and vehicle type.
+
+## HTTP Method
+`POST`
+
+## Endpoint
+`/rides/create-ride`
+
+## Request Body
+- `pickup` (required, string): The pickup location address.
+- `destination` (required, string): The destination location address.
+- `vehicleType` (required, string): Type of vehicle (`auto`, `motorcycle`, `car`).
+
+## Success Response
+- 201 Created: Returns the created ride object.
+
+## Error Response
+- 400 Bad Request: Returns validation errors if required fields are missing or invalid.
+- 500 Internal Server Error: If internal server error occurs.
+
+## Example Request
+```json
+{
+  "pickup": "123 Main Street, New York, NY 10001",
+  "destination": "456 Park Avenue, Los Angeles, CA 90012",
+  "vehicleType": "car"
+}
+```
+
+## Example Response
+```json
+{
+  "user": "5f8f8c44b54764421b7156c1",
+  "pickup": "123 Main Street, New York, NY 10001",
+  "destination": "456 Park Avenue, Los Angeles, CA 90012",
+  "fare": 600,
+  "status": "pending",
+  "otp": "123456",
+  "_id": "5f8f8c44b54764421b7156c2"
 }
 ```
