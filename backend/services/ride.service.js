@@ -1,12 +1,13 @@
 const rideModel = require('../models/ride.model');
-const mapsService = require('./maps.service');
+const mapService = require('./maps.service');
 
 async function getFare(pickup, destination) {
+
     if (!pickup || !destination) {
         throw new Error('Pickup and destination are required');
     }
 
-    const distanceTime = await mapsService.getDistanceTime(pickup, destination);
+    const distanceTime = await mapService.getDistanceTime(pickup, destination);
 
     const baseFare = {
         auto: 30,
@@ -54,4 +55,6 @@ module.exports.createRide = async ({
         destination,
         fare: fare[vehicleType]
     });
+
+    return ride;
 }
