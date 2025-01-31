@@ -500,3 +500,35 @@ Creates a new ride request with the specified pickup, destination, and vehicle t
   "_id": "5f8f8c44b54764421b7156c2"
 }
 ```
+
+## /rides/get-fare Endpoint
+
+## Description
+Returns a fare estimate for the specified pickup and destination.
+
+## HTTP Method
+GET
+
+## Endpoint
+/rides/get-fare
+
+## Query Parameters
+- pickup (required, string): The pickup location address
+- destination (required, string): The destination location address
+
+## Success Response
+- 200 OK: Returns the fare estimate
+
+## Error Response
+- 400 Bad Request: Validation errors if parameters are missing or invalid
+- 500 Internal Server Error: If there is a server-side error
+
+## Example Request
+GET /rides/get-fare?pickup=Central+Park&destination=Times+Square
+
+## Example Response
+```json
+{
+  "fare": 450
+}
+```
