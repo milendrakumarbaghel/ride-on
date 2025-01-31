@@ -1,6 +1,6 @@
 # Backend API Documentation
 
-## /users/register Endpoint
+# /users/register Endpoint
 
 ## Description
 Registers a new user with the provided information.
@@ -53,7 +53,8 @@ Registers a new user with the provided information.
 }
 ```
 
-## /users/login Endpoint
+# /users/login Endpoint
+
 ## Description
 Authenticate a user with valid credentials.
 
@@ -90,7 +91,7 @@ Authenticate a user with valid credentials.
 }
 ```
 
-## /users/profile Endpoint
+# /users/profile Endpoint
 
 ## Description
 Get the authenticated user's profile information.
@@ -124,7 +125,7 @@ Get the authenticated user's profile information.
 }
 ```
 
-## /users/logout Endpoint
+# /users/logout Endpoint
 
 ## Description
 Logs out the current user by blacklisting their token.
@@ -153,7 +154,7 @@ Logs out the current user by blacklisting their token.
 
 # Captain API Documentation
 
-## /captains/register Endpoint
+# /captains/register Endpoint
 
 ## Description
 Registers a new captain with the provided information including vehicle details.
@@ -222,7 +223,7 @@ Registers a new captain with the provided information including vehicle details.
 }
 ```
 
-## /captains/login Endpoint
+# /captains/login Endpoint
 
 ## Description
 Authenticate a captain with valid credentials.
@@ -270,7 +271,7 @@ Authenticate a captain with valid credentials.
 }
 ```
 
-## /captains/profile Endpoint
+# /captains/profile Endpoint
 
 ## Description
 Get the authenticated captain's profile information.
@@ -315,7 +316,7 @@ Get the authenticated captain's profile information.
 }
 ```
 
-## /captains/logout Endpoint
+# /captains/logout Endpoint
 
 ## Description
 Logs out the current captain by blacklisting their token.
@@ -342,7 +343,10 @@ Logs out the current captain by blacklisting their token.
 }
 ```
 
-## /maps/get-coordinates Endpoint
+
+# Map API Documentation
+
+# /maps/get-coordinates Endpoint
 
 ## Description
 Gets the geographic coordinates (latitude and longitude) for a given address.
@@ -376,7 +380,7 @@ GET /maps/get-coordinates?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA
 }
 ```
 
-## /maps/get-distance-time Endpoint
+# /maps/get-distance-time Endpoint
 
 ## Description
 Calculates the distance and time between an origin and a destination.
@@ -418,7 +422,7 @@ GET /maps/get-distance-time?origin=New+York,NY&destination=Los+Angeles,CA
 }
 ```
 
-## /maps/get-suggestions Endpoint
+# /maps/get-suggestions Endpoint
 
 ## Description
 Provides autocomplete suggestions for location inputs based on user input.
@@ -456,7 +460,9 @@ GET /maps/get-suggestions?input=1600+Amphitheatre
 ]
 ```
 
-## /rides/create Endpoint
+# Ride API Documentation
+
+# /rides/create Endpoint
 
 ## Description
 Creates a new ride request with the specified pickup, destination, and vehicle type.
@@ -501,7 +507,7 @@ Creates a new ride request with the specified pickup, destination, and vehicle t
 }
 ```
 
-## /rides/get-fare Endpoint
+# /rides/get-fare Endpoint
 
 ## Description
 Returns a fare estimate for the specified pickup and destination.
