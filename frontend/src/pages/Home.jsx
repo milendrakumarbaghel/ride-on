@@ -18,8 +18,6 @@ const Home = () => {
   const [pickup, setPickup] = useState('')
   const [destination, setDestination] = useState('')
   const [panelOpen, setPanelOpen] = useState(false)
-  const [vehicleType, setVehicleType] = useState(null)
-  const [fare, setFare] = useState({})
   const [vehiclePanel, setVehiclePanel] = useState(false)
   const [confirmRidePanel, setConfirmRidePanel] = useState(false)
   const [vehicleFound, setVehicleFound] = useState(false)
@@ -27,7 +25,9 @@ const Home = () => {
   const [pickupSuggestions, setPickupSuggestions] = useState([])
   const [destinationSuggestions, setDestinationSuggestions] = useState([])
   const [activeField, setActiveField] = useState(null)
+  const [fare, setFare] = useState({})
   const [ride, setRide] = useState(null)
+  const [vehicleType, setVehicleType] = useState(null)
 
 
   const panelRef = useRef(null)
@@ -69,9 +69,46 @@ const Home = () => {
     }
   }
 
-  function findTrip() {
+  async function findTrip() {
     setVehiclePanel(true)
     setPanelOpen(false)
+
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/rides/get-fare`, {
+        params: {
+          pickup,
+          destination
+        },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+      console.log("API Response:", response.data);
+      setFare(response.data)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function createRide() {
+    await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/create-ride`, {
+      pickup,
+      destination,
+      vehicleType
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+      .then(response => {
+        console.log("API Response:", response.data);
+        setRide(response.data)
+        setVehiclePanel(false)
+        setConfirmRidePanel(true)
+      })
+      .catch(error => {
+        console.error(error);
+      })
   }
 
   const submitHandler = (e) => {
@@ -202,8 +239,8 @@ const Home = () => {
 
           </form>
 
-          <button onClick={ findTrip } className='bg-black text-white px-4 py-2 rounded-lg mt-3 w-full'>
-            Find Trip 
+          <button onClick={findTrip} className='bg-black text-white px-4 py-2 rounded-lg mt-3 w-full'>
+            Find Trip
           </button>
         </div>
 
@@ -222,13 +259,17 @@ const Home = () => {
       <div ref={vehiclePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12'>
         <VehiclePanel
           selectVehicle={setVehicleType}
-          fare={fare} setConfirmRidePanel={setConfirmRidePanel}
+          fare={fare}
+          setConfirmRidePanel={setConfirmRidePanel}
           setVehiclePanel={setVehiclePanel}
         />
       </div>
 
       <div ref={confirmRidePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12'>
-        <ConfirmRide setConfirmRidePanel={setConfirmRidePanel} setVehicleFound={setVehicleFound}
+        <ConfirmRide
+          setConfirmRidePanel={setConfirmRidePanel}
+          setVehicleFound={setVehicleFound}
+          createRide={createRide}
         />
       </div>
 
