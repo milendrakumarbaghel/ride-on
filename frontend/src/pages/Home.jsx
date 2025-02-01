@@ -83,7 +83,7 @@ const Home = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       })
-      console.log("API Response:", response.data);
+      // console.log("API Response:", response.data);
       setFare(response.data)
     } catch (error) {
       console.error(error);
@@ -101,7 +101,7 @@ const Home = () => {
       }
     })
       .then(response => {
-        console.log("API Response:", response.data);
+        // console.log("API Response:", response.data);
         setRide(response.data)
         setVehiclePanel(false)
         setConfirmRidePanel(true)
@@ -129,6 +129,7 @@ const Home = () => {
     } else {
       gsap.to(panelRef.current, {
         height: '0%',
+        padding: 0,
         // opacity: 0
       })
       gsap.to(panelCloseRef.current, {
@@ -239,7 +240,10 @@ const Home = () => {
 
           </form>
 
-          <button onClick={findTrip} className='bg-black text-white px-4 py-2 rounded-lg mt-3 w-full'>
+          <button
+            onClick={findTrip}
+            className='bg-black text-white px-4 py-2 rounded-lg mt-3 w-full'
+          >
             Find Trip
           </button>
         </div>
@@ -267,18 +271,34 @@ const Home = () => {
 
       <div ref={confirmRidePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12'>
         <ConfirmRide
+          createRide={createRide}
+          pickup={pickup}
+          destination={destination}
+          fare={fare}
+          vehicleType={vehicleType}
           setConfirmRidePanel={setConfirmRidePanel}
           setVehicleFound={setVehicleFound}
-          createRide={createRide}
         />
       </div>
 
       <div ref={vehicleFoundRef} className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12'>
-        <LookingForDriver setVehicleFound={setVehicleFound} />
+        <LookingForDriver
+          createRide={createRide}
+          pickup={pickup}
+          destination={destination}
+          fare={fare}
+          vehicleType={vehicleType}
+          setVehicleFound={setVehicleFound}
+        />
       </div>
 
       <div ref={waitingForDriverRef} className='fixed w-full z-10 translate-y-full bottom-0 bg-white px-3 py-10 pt-12'>
-        <WaitingForDriver setWaitingForDriver={setWaitingForDriver} />
+        <WaitingForDriver
+          ride={ride}
+          setVehicleFound={setVehicleFound}
+          setWaitingForDriver={setWaitingForDriver}
+          waitingForDriver={waitingForDriver}
+        />
       </div>
     </div>
   )
