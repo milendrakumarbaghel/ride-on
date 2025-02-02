@@ -104,7 +104,6 @@ const Home = () => {
         // console.log("API Response:", response.data);
         setRide(response.data)
         setVehiclePanel(false)
-        setConfirmRidePanel(true)
       })
       .catch(error => {
         console.error(error);
@@ -115,14 +114,14 @@ const Home = () => {
     e.preventDefault();
   }
 
-  useGSAP(function () {
+  useGSAP(() => {
     if (panelOpen) {
+      gsap.set(panelRef.current, { display: 'block' })
       gsap.to(panelRef.current, {
         height: '70%',
-        padding: 24,
-        // opacity: 1
+        padding: 24
+        // ...existing code...
       })
-
       gsap.to(panelCloseRef.current, {
         opacity: 1
       })
@@ -130,7 +129,7 @@ const Home = () => {
       gsap.to(panelRef.current, {
         height: '0%',
         padding: 0,
-        // opacity: 0
+        onComplete: () => gsap.set(panelRef.current, { display: 'none' })
       })
       gsap.to(panelCloseRef.current, {
         opacity: 0
@@ -138,50 +137,58 @@ const Home = () => {
     }
   }, [panelOpen])
 
-  useGSAP(function () {
+  useGSAP(() => {
     if (vehiclePanel) {
+      gsap.set(vehiclePanelRef.current, { display: 'block' })
       gsap.to(vehiclePanelRef.current, {
         transform: 'translateY(0)'
       })
     } else {
       gsap.to(vehiclePanelRef.current, {
-        transform: 'translateY(100%)'
+        transform: 'translateY(100%)',
+        onComplete: () => gsap.set(vehiclePanelRef.current, { display: 'none' })
       })
     }
   }, [vehiclePanel])
 
-  useGSAP(function () {
+  useGSAP(() => {
     if (confirmRidePanel) {
+      gsap.set(confirmRidePanelRef.current, { display: 'block' })
       gsap.to(confirmRidePanelRef.current, {
         transform: 'translateY(0)'
       })
     } else {
       gsap.to(confirmRidePanelRef.current, {
-        transform: 'translateY(100%)'
+        transform: 'translateY(100%)',
+        onComplete: () => gsap.set(confirmRidePanelRef.current, { display: 'none' })
       })
     }
   }, [confirmRidePanel])
 
-  useGSAP(function () {
+  useGSAP(() => {
     if (vehicleFound) {
+      gsap.set(vehicleFoundRef.current, { display: 'block' })
       gsap.to(vehicleFoundRef.current, {
         transform: 'translateY(0)'
       })
     } else {
       gsap.to(vehicleFoundRef.current, {
-        transform: 'translateY(100%)'
+        transform: 'translateY(100%)',
+        onComplete: () => gsap.set(vehicleFoundRef.current, { display: 'none' })
       })
     }
   }, [vehicleFound])
 
-  useGSAP(function () {
+  useGSAP(() => {
     if (waitingForDriver) {
+      gsap.set(waitingForDriverRef.current, { display: 'block' })
       gsap.to(waitingForDriverRef.current, {
         transform: 'translateY(0)'
       })
     } else {
       gsap.to(waitingForDriverRef.current, {
-        transform: 'translateY(100%)'
+        transform: 'translateY(100%)',
+        onComplete: () => gsap.set(waitingForDriverRef.current, { display: 'none' })
       })
     }
   }, [waitingForDriver])
