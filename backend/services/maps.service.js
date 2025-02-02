@@ -73,9 +73,22 @@ module.exports.getAutoCompleteSuggestions = async (input) => {
         } else {
             throw new Error('Unable to fetch suggestions');
         }
-        
+
     } catch (error) {
         console.error(error);
         throw error;
     }
+}
+
+
+module.exports.getCaptainsInTheRadius = async (ltd, lng, radius) => {
+    const captains = await captainModel.find({
+        location: {
+            $geoWithin: {
+                $centerSphere: [ [ ltd, lng ], radius / 3963.2 ]
+            }
+        }
+    });;
+
+    return captains;
 }
