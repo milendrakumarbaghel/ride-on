@@ -7,6 +7,8 @@ import { useRef } from 'react'
 import { useGSAP } from "@gsap/react";
 import gsap from 'gsap'
 import ConfirmRidePopUp from '../components/ConfirmRidePopUp'
+import axios from 'axios';
+
 
 import { useEffect, useContext } from 'react'
 import { SocketContext } from '../context/SocketContext'
@@ -61,7 +63,7 @@ const CaptainHome = () => {
     updateLocation();
 
     // return () => clearInterval(locationInterval);
-  })
+  }, [])
 
   socket.on('new-ride', (data) => {
     console.log(data);
@@ -71,9 +73,15 @@ const CaptainHome = () => {
 
   async function confirmRide() {
 
-    const response = await axios.post(`${process.env.REACT_APP_BACKEND_API}/rides/confirm`, {
-      
-    })
+    // console.log(process.env.VITE_BASE_URL)
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/confirm`, {
+      rideId: ride._id,
+      captainId: captain._id,
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
 
     setRidePopupPanel(false)
     setConfirmRidePopupPanel(true)

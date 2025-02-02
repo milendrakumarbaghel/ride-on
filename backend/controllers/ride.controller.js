@@ -74,3 +74,27 @@ module.exports.getFare = async (req, res) => {
         return res.status(500).json({ error: 'Error while fatching fare' });
     }
 }
+
+module.exports.confirmRide = async (req, res) => {
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()) {
+        return res.status(400).json({ error: errors.array() });
+    }
+
+    const { rideId } = req.body;
+
+    try{
+        const ride = await rideService.confirmRide({rideId, captain: req.captain});
+
+        sendMessageToSocketId(ride.user.socketId, {
+            event: 'ride-accepted',
+            data: ride
+        });
+
+        return res.status(200).json(ride);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
