@@ -10,7 +10,7 @@ const UserProtecteWrapper = ({children}) => {
     const { user, setUser } = useContext(UserDataContext);
     const [ isLoading, setIsLoading ] = useState(true);
 
-    // console.log(token)   
+    // console.log(token)
 
     useEffect(() => {
         if (!token) {
@@ -24,7 +24,7 @@ const UserProtecteWrapper = ({children}) => {
         })
         .then((response) => {
             if(response.status === 200) {
-                setUser(response.data.user);
+                setUser(response.data);
                 setIsLoading(false);
             }
         })
