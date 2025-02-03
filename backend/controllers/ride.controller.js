@@ -85,16 +85,17 @@ module.exports.confirmRide = async (req, res) => {
     const { rideId } = req.body;
 
     try{
-        const ride = await rideService.confirmRide({rideId, captain: req.captain});
+        const ride = await rideService.confirmRide({ rideId, captain: req.captain });
 
         sendMessageToSocketId(ride.user.socketId, {
-            event: 'ride-accepted',
+            event: 'ride-confirmed',
             data: ride
         });
 
         return res.status(200).json(ride);
     } catch (error) {
         console.error(error);
+        console.log('yha hai error')
         return res.status(500).json({ error: 'Internal server error' });
     }
 }
