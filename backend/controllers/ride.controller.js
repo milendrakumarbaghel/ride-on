@@ -92,6 +92,7 @@ module.exports.confirmRide = async (req, res) => {
             data: ride
         });
 
+        console.log(ride)
         return res.status(200).json(ride);
     } catch (error) {
         console.error(error);
