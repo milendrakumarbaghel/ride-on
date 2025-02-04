@@ -12,9 +12,10 @@ const WaitingForDriver = (props) => {
           <img className='h-14' src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_538,w_956/v1646663215/assets/6e/e50c1b-2174-4c97-83a1-bfd4544689d0/original/uberX.png" alt="" />
 
           <div className='text-right'>
-            <h2 className='text-lg font-medium'>{ props.ride?.captain?.fullName?.firstName + " " + props.ride?.captain?.fullName?.lastName }</h2>
+            <h2 className='text-lg font-medium capitalize'>{ props.ride?.captain?.fullName?.firstName + " " + props.ride?.captain?.fullName?.lastName }</h2>
             <h4 className='text-xl font-semibold -mt-1 -mb-1'>{ props.ride?.captain?.vehicle?.plate }</h4>
             <p className='text-sm text-gray-600'>Maruti Suzuki Alto</p>
+            <h1 className='text-lg font-semibold'> { props.ride?.otp } </h1>
           </div>
         </div>
 
