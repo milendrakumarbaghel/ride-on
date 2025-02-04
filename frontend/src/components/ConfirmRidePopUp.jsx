@@ -1,12 +1,31 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const ConfirmRidePopUp = (props) => {
     const [otp, setOtp] = useState('')
 
-    const submitHandler = (e) => {
+    const navigate = useNavigate()
+
+    const submitHandler = async (e) => {
         e.preventDefault();
+
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/confirm`, {
+            rideId: props.ride._id,
+            otp: otp
+        }, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+
+        if (response.status === 200) {
+            props.setConfirmRidePopupPanel(false)
+            props.setRidePopupPanel(false)
+            navigate('/captain-riding')
+        }
     }
 
     return (
@@ -59,9 +78,7 @@ const ConfirmRidePopUp = (props) => {
                 </div>
 
                 <div className='mt-5 w-full'>
-                    <form onSubmit={() => {
-                        submitHandler(e);
-                    }}>
+                    <form onSubmit={() => { submitHandler }}>
 
                         <input
                             value={otp}

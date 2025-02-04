@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form } from 'react-router-dom'
+import { Form, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useGSAP } from "@gsap/react";
 import gsap from 'gsap'
@@ -33,6 +33,7 @@ const Home = () => {
   const [ride, setRide] = useState(null)
   const [vehicleType, setVehicleType] = useState(null)
 
+  const navigate = useNavigate();
 
   const panelRef = useRef(null)
   const panelCloseRef = useRef(null)
@@ -52,6 +53,11 @@ const Home = () => {
     setVehicleFound(false)
     setWaitingForDriver(true)
     setRide(ride)
+  })
+
+  socket.on('ride-started', ride => {
+    setWaitingForDriver(false)
+    navigate('/riding')
   })
 
 
