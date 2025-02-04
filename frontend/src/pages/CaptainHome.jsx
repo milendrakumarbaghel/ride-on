@@ -63,7 +63,7 @@ const CaptainHome = () => {
     updateLocation();
 
     // return () => clearInterval(locationInterval);
-  }, [])
+  }, [ captain ])
 
   socket.on('new-ride', (data) => {
     console.log(data);
