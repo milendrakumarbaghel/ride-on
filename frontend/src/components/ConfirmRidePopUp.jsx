@@ -78,7 +78,7 @@ const ConfirmRidePopUp = (props) => {
                 </div>
 
                 <div className='mt-5 w-full'>
-                    <form onSubmit={() => { submitHandler }}>
+                    <form onSubmit={submitHandler}>
 
                         <input
                             value={otp}
@@ -91,7 +91,6 @@ const ConfirmRidePopUp = (props) => {
                         />
 
                         <button
-                            // to='/captain-riding'
                             className='w-full mt-4 bg-green-600 text-lg flex justify-center text-white font-semibold p-3 rounded-lg'
                         >
                             Confirm
