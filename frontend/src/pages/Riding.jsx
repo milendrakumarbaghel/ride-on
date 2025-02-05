@@ -1,7 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const Riding = () => {
+
+    const location = useLocation()
+    const { ride } = location.state || {}
+
     return (
         <div className='h-screen'>
 
@@ -46,7 +50,6 @@ const Riding = () => {
                         </div>
                     </div>
                 </div>
-
                 <button className='w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg'>Make a Payment</button>
             </div>
 

@@ -57,7 +57,7 @@ const Home = () => {
 
   socket.on('ride-started', ride => {
     setWaitingForDriver(false)
-    navigate('/riding')
+    navigate('/riding', {state: { ride } })
   })
 
 
