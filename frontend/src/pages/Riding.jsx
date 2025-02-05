@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useState, useEffect, useContext } from 'react'
-import { SocketContext } from '../context/SocketContext'
+import { SocketContext } from '../context/SocketContext';
 import { useNavigate } from 'react-router-dom'
 
 const Riding = () => {
@@ -9,7 +9,7 @@ const Riding = () => {
     const location = useLocation()
     const { ride } = location.state || {}
 
-    const { socket } = useContext(SocketContext)
+    const { socket } = useContext(SocketContext);
     const navigate = useNavigate()
 
     socket.on('ride-ended', () => {

@@ -138,6 +138,8 @@ module.exports.endRide = async (req, res) => {
     try {
         const ride = await rideService.endRide({ rideId, captain: req.captain });
 
+        console.log('Sending ride-ended event to user:', ride.user.socketId);
+
         sendMessageToSocketId(ride.user.socketId, {
             event: 'ride-ended',
             data: ride
