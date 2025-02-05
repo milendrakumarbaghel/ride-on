@@ -144,8 +144,6 @@ module.exports.endRide = async ({ rideId, captain }) => {
         throw new Error('Ride not found');
     }
 
-    console.log(ride)
-
     if(ride.status !== 'ongoing') {
         throw new Error('Ride is not ongoing');
     }

@@ -16,7 +16,6 @@ const Riding = () => {
         navigate('/home')
     })
 
-
     return (
         <div className='h-screen'>
 
@@ -35,7 +34,7 @@ const Riding = () => {
 
                     <div className='text-right'>
                         <h2 className='text-lg font-medium capitalize'>{ride?.captain?.fullName?.firstName + " " + ride?.captain?.fullName?.lastName}</h2>
-                        <h4 className='text-xl font-semibold -mt-1 -mb-1'>{ride?.captai?.vehicle?.plate}</h4>
+                        <h4 className='text-xl font-semibold -mt-1 -mb-1'>{ride?.captain?.vehicle?.plate}</h4>
                         <p className='text-sm text-gray-600'>Maruti Suzuki Alto</p>
                     </div>
                 </div>
@@ -61,7 +60,11 @@ const Riding = () => {
                         </div>
                     </div>
                 </div>
-                <button className='w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg'>Make a Payment</button>
+                <button
+                    className='w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg'
+                >
+                    Make a Payment
+                </button>
             </div>
 
         </div>

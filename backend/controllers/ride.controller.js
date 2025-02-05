@@ -148,6 +148,6 @@ module.exports.endRide = async (req, res) => {
     } catch (error) {
         console.error(error);
         console.log('Error during ending ride');
-        return res.status(500).json({ error: 'Internal server error' });
+        return res.status(500).json({ message: error.message });
     }
 }
