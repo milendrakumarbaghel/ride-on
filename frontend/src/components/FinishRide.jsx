@@ -1,8 +1,28 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 
 const FinishRide = (props) => {
+
+  const navigate = useNavigate()
+
+  async function endRide() {
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/end-ride`, {
+      rideId: props.ride._id
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+
+    if(response.status === 200) {
+      navigate('/captain-home')
+    }
+  }
+
+
   return (
     <div className='p-1'>
       <h5 className='p-1 text-center w-[93%] absolute top-0' onClick={() => {
@@ -13,7 +33,7 @@ const FinishRide = (props) => {
       <div className='flex items-center justify-between mt-4 p-3 border-2 border-yellow-400 rounded-lg'>
         <div className='flex items-center gap-3'>
           <img className='h-12 w-12 rounded-full object-cover' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW-d1IOho0re20i3BGnNc3eS_FTzZptE4vxA&s" alt="" />
-          <h2 className='text-lg font-medium'>{props.ride?.user?.fullName?.firstName + " " + props.ride?.user?.fullName?.lastName}</h2>
+          <h2 className='text-lg font-medium capitalize'>{props.ride?.user?.fullName?.firstName + " " + props.ride?.user?.fullName?.lastName}</h2>
         </div>
         <h5 className='text-lg font-semibold'>2.2 KM</h5>
       </div>
@@ -53,12 +73,13 @@ const FinishRide = (props) => {
 
         <div className='p-1 mt-10 w-full'>
 
-          <Link
-            to='/captain-home'
+          <button
+            // to='/captain-home'
+            onClick={endRide}
             className='w-full mt-5 bg-green-600 text-lg flex justify-center text-white font-semibold p-3 rounded-lg'
           >
             Finish Ride
-          </Link>
+          </button>
 
           <p className='p-2 mt-5 text-[75%] font-medium'>Click on Finish ride button if payment has been completed.</p>
 
