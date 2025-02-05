@@ -74,7 +74,6 @@ const FinishRide = (props) => {
         <div className='p-1 mt-10 w-full'>
 
           <button
-            // to='/captain-home'
             onClick={endRide}
             className='w-full mt-5 bg-green-600 text-lg flex justify-center text-white font-semibold p-3 rounded-lg'
           >
