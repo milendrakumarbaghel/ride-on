@@ -154,5 +154,10 @@ module.exports.endRide = async ({ rideId, captain }) => {
         status: 'completed'
     })
 
+    sendMessageToSocketId(ride.user.socketId, {
+        event: 'ride-ended',
+        data: ride
+    });
+
     return ride;
 }
