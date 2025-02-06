@@ -1,69 +1,75 @@
-import React, { useState, useEffect } from 'react'
-import { LoadScript, GoogleMap, Marker } from '@react-google-maps/api'
+import React, { useState, useEffect, useRef } from 'react';
+import { LoadScript, GoogleMap } from '@react-google-maps/api';
 
-const containerStyle = {
-    width: '100%',
-    height: '100%',
-};
+// ✅ Keep libraries as a static constant to avoid reloading issues
+const LIBRARIES = ['marker']; // Required for AdvancedMarkerElement
 
-const center = {
-    lat: -3.745,
-    lng: -38.523
-};
+const mapContainerStyle = { width: '100%', height: '100%' };
+
+// ✅ Add a valid Google Maps Map ID
+const MAP_ID = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID; // Ensure it's set in your environment variables
 
 const LiveTracking = () => {
-    const [ currentPosition, setCurrentPosition ] = useState(center);
+    const [currentPosition, setCurrentPosition] = useState(null);
+    const mapRef = useRef(null);
+    const markerRef = useRef(null);
 
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition((position) => {
-            const { latitude, longitude } = position.coords;
-            setCurrentPosition({
-                lat: latitude,
-                lng: longitude
-            });
-        });
+        if (navigator.geolocation) {
+            const watchId = navigator.geolocation.watchPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    setCurrentPosition({ lat: latitude, lng: longitude });
+                },
+                (error) => console.error('Error getting location:', error),
+                { enableHighAccuracy: true, maximumAge: 0, timeout: 5000 }
+            );
 
-        const watchId = navigator.geolocation.watchPosition((position) => {
-            const { latitude, longitude } = position.coords;
-            setCurrentPosition({
-                lat: latitude,
-                lng: longitude
-            });
-        });
-
-        return () => navigator.geolocation.clearWatch(watchId);
+            return () => navigator.geolocation.clearWatch(watchId);
+        } else {
+            console.error('Geolocation not supported');
+        }
     }, []);
 
-    useEffect(() => {
-        const updatePosition = () => {
-            navigator.geolocation.getCurrentPosition((position) => {
-                const { latitude, longitude } = position.coords;
+    const handleMapLoad = (map) => {
+        mapRef.current = map;
+        console.log('Google Map Loaded:', map);
+    };
 
-                console.log('Position updated:', latitude, longitude);
-                setCurrentPosition({
-                    lat: latitude,
-                    lng: longitude
+    useEffect(() => {
+        if (mapRef.current && window.google?.maps?.marker?.AdvancedMarkerElement && currentPosition) {
+            if (!markerRef.current) {
+                // ✅ Create marker only once
+                markerRef.current = new window.google.maps.marker.AdvancedMarkerElement({
+                    position: currentPosition,
+                    map: mapRef.current,
                 });
-            });
-        };
-
-        updatePosition(); // Initial position update
-
-        const intervalId = setInterval(updatePosition, 1000); // Update every 10 seconds
-
-    }, []);
+                console.log('Marker created:', markerRef.current);
+            } else {
+                // ✅ Update marker position dynamically
+                markerRef.current.position = currentPosition;
+                console.log('Marker position updated:', markerRef.current.position);
+            }
+        }
+    }, [currentPosition]);
 
     return (
-        <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+        <LoadScript
+            googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+            libraries={LIBRARIES} // ✅ Static variable to prevent unnecessary reloads
+            onLoad={() => console.log('Google Maps API Loaded!')}
+        >
             <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={currentPosition}
-                zoom={15}
-            >
-                <Marker position={currentPosition} />
-            </GoogleMap>
+                mapContainerStyle={mapContainerStyle}
+                center={currentPosition || { lat: 0, lng: 0 }}
+                zoom={currentPosition ? 18 : 2}
+                onLoad={handleMapLoad}
+                options={{
+                    mapId: MAP_ID, // Keep your Map ID
+                }}
+            />
         </LoadScript>
-    )
-}
+    );
+};
 
-export default LiveTracking
+export default LiveTracking;
