@@ -32,6 +32,7 @@ const Home = () => {
   const [fare, setFare] = useState({})
   const [ride, setRide] = useState(null)
   const [vehicleType, setVehicleType] = useState(null)
+  const [isRideStarted, setIsRideStarted] = useState(false)
 
   const navigate = useNavigate();
 
@@ -56,10 +57,19 @@ const Home = () => {
   })
 
   socket.on('ride-started', ride => {
-    setWaitingForDriver(false)
-    navigate('/riding', {state: { ride } })
+    setWaitingForDriver(false);
+    setRide(ride);
+    setIsRideStarted(true);
   })
 
+  useEffect(() => {
+    if (isRideStarted) {
+      navigate('/riding', {
+        replace: true,
+        state: { ride }
+      });
+    }
+  }, [isRideStarted, ride])
 
   const handlePickupChange = async (e) => {
     setPickup(e.target.value)
