@@ -232,12 +232,12 @@ const Home = () => {
     <div className='h-screen relative overflow-hidden'>
       <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="uber-logo" className="w-16 absolute left-5 top-5" />
 
-      <div className='h-screen w-screen'>
+      <div className='h-4/6 w-screen'>
         <LiveTracking />
       </div>
 
-      <div className='h-screen flex flex-col justify-end absolute top-0 w-full'>
-        <div className='h-[30%] bg-white p-6 relative'>
+      <div className='h-full flex flex-col justify-end absolute top-0 w-full'>
+        <div className='h-[35%] bg-white p-6 relative'>
           <h5
             ref={panelCloseRef}
             onClick={() => {
