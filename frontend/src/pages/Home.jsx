@@ -11,6 +11,7 @@ import VehiclePanel from '../components/VehiclePanel';
 import ConfirmRide from '../components/ConfirmRide';
 import LookingForDriver from '../components/LookingForDriver';
 import WaitingForDriver from '../components/WaitingForDriver';
+import LiveTracking from '../components/LiveTracking'
 import { useContext } from 'react';
 
 import { SocketContext } from '../context/SocketContext';
@@ -34,7 +35,7 @@ const Home = () => {
   const [vehicleType, setVehicleType] = useState(null)
   const [isRideStarted, setIsRideStarted] = useState(false)
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const panelRef = useRef(null)
   const panelCloseRef = useRef(null)
@@ -233,7 +234,7 @@ const Home = () => {
 
       <div className='h-screen w-screen'>
         {/* temporary image */}
-        <img className='h-full w-full object-cover' src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif" alt="" />
+        <LiveTracking />
       </div>
 
       <div className='h-screen flex flex-col justify-end absolute top-0 w-full'>
