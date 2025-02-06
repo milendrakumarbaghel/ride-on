@@ -233,7 +233,6 @@ const Home = () => {
       <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="uber-logo" className="w-16 absolute left-5 top-5" />
 
       <div className='h-screen w-screen'>
-        {/* temporary image */}
         <LiveTracking />
       </div>
 

@@ -31,6 +31,25 @@ const LiveTracking = () => {
         }
     }, []);
 
+    // useEffect(() => {
+    //     if (navigator.geolocation) {
+    //         const intervalId = setInterval(() => {
+    //             navigator.geolocation.getCurrentPosition(
+    //                 (position) => {
+    //                     const { latitude, longitude } = position.coords;
+    //                     setCurrentPosition({ lat: latitude, lng: longitude });
+    //                 },
+    //                 (error) => console.error('Error getting location:', error),
+    //                 { enableHighAccuracy: true }
+    //             );
+    //         }, 5000); // Updates every 5 seconds
+
+    //         return () => clearInterval(intervalId);
+    //     } else {
+    //         console.error('Geolocation not supported');
+    //     }
+    // }, []);
+
     const handleMapLoad = (map) => {
         mapRef.current = map;
         console.log('Google Map Loaded:', map);
