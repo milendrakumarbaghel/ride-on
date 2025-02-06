@@ -34,7 +34,7 @@ const Home = () => {
   const [vehicleType, setVehicleType] = useState(null)
   const [isRideStarted, setIsRideStarted] = useState(false)
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const panelRef = useRef(null)
   const panelCloseRef = useRef(null)

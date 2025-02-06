@@ -1,11 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 const ConfirmRidePopUp = (props) => {
     const [otp, setOtp] = useState('')
+    const [isRideStarted, setIsRideStarted] = useState(false)
 
     const navigate = useNavigate()
 
@@ -24,9 +25,20 @@ const ConfirmRidePopUp = (props) => {
         if (response.status === 200) {
             props.setConfirmRidePopupPanel(false)
             props.setRidePopupPanel(false)
-            navigate('/captain-riding', { state: { ride: props.ride } })
+            setIsRideStarted(true)
+            // navigate('/captain-riding', { state: { ride: props.ride } })
         }
     }
+
+    useEffect(() => {
+        if (isRideStarted) {
+            navigate('/captain-riding',
+                {
+                    state: { ride: props.ride }
+                }
+            );
+        }
+    }, [isRideStarted])
 
     return (
         <div className='p-3 h-screen'>

@@ -2,10 +2,11 @@ import React from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 
 const FinishRide = (props) => {
-
+  const [isRideEnded, setIsRideEnded] = useState(false)
   const navigate = useNavigate()
 
   async function endRide() {
@@ -18,10 +19,15 @@ const FinishRide = (props) => {
     })
 
     if(response.status === 200) {
-      navigate('/captain-home')
+      setIsRideEnded(true)
     }
   }
 
+  useEffect(() => {
+    if (isRideEnded) {
+      navigate('/captain-home');
+    }
+  }, [isRideEnded])
 
   return (
     <div className='p-1'>
