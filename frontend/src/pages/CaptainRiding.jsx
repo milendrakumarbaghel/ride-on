@@ -5,7 +5,10 @@ import { useState } from 'react'
 import { useRef } from 'react'
 import { useGSAP } from "@gsap/react";
 import gsap from 'gsap'
-import LiveTracking from '../components/LiveTracking'
+// import LiveTracking from '../components/LiveTracking'
+import PickupDestinationDirection from '../components/PickupDestinationDirection';
+
+
 
 const CaptainRiding = () => {
 
@@ -15,8 +18,6 @@ const CaptainRiding = () => {
     const finishRidePanelRef = useRef(null)
     const location = useLocation()
     const rideData = location.state?.ride
-    // console.log(ride)
-
 
     useGSAP(function () {
         if (finishRidePanel) {
@@ -43,7 +44,10 @@ const CaptainRiding = () => {
             </div>
 
             <div className='h-4/5'>
-                <LiveTracking />
+                <PickupDestinationDirection
+                    pickup={rideData?.pickup}
+                    destination={rideData?.destination}
+                />
             </div>
 
             <div className='h-1/5 p-6 bg-yellow-400 relative flex items-center justify-between'

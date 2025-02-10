@@ -22,7 +22,7 @@ const LiveTracking = () => {
                     setCurrentPosition({ lat: latitude, lng: longitude });
                 },
                 (error) => console.error('Error getting location:', error),
-                { enableHighAccuracy: true, maximumAge: 0, timeout: 5000 }
+                { enableHighAccuracy: true, maximumAge: 0, timeout: 8000 }
             );
 
             return () => navigator.geolocation.clearWatch(watchId);
@@ -30,25 +30,6 @@ const LiveTracking = () => {
             console.error('Geolocation not supported');
         }
     }, []);
-
-    // useEffect(() => {
-    //     if (navigator.geolocation) {
-    //         const intervalId = setInterval(() => {
-    //             navigator.geolocation.getCurrentPosition(
-    //                 (position) => {
-    //                     const { latitude, longitude } = position.coords;
-    //                     setCurrentPosition({ lat: latitude, lng: longitude });
-    //                 },
-    //                 (error) => console.error('Error getting location:', error),
-    //                 { enableHighAccuracy: true }
-    //             );
-    //         }, 5000); // Updates every 5 seconds
-
-    //         return () => clearInterval(intervalId);
-    //     } else {
-    //         console.error('Geolocation not supported');
-    //     }
-    // }, []);
 
     const handleMapLoad = (map) => {
         mapRef.current = map;
@@ -79,6 +60,7 @@ const LiveTracking = () => {
             onLoad={() => console.log('Google Maps API Loaded!')}
         >
             <GoogleMap
+                // key={currentPosition ? `${currentPosition.lat}-${currentPosition.lng}` : 'initial-map'}
                 mapContainerStyle={mapContainerStyle}
                 center={currentPosition || { lat: 0, lng: 0 }}
                 zoom={currentPosition ? 18 : 2}

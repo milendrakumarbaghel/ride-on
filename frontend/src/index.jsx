@@ -6,6 +6,7 @@ import { StrictMode } from 'react';
 import UserContext from './context/UserContext.jsx';
 import CaptainContext from './context/CaptainContext.jsx';
 import SocketProvider from './context/SocketContext.jsx';
+import AppWrapper from './AppWrapper.jsx';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>

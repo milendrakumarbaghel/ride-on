@@ -3,10 +3,11 @@ import { Link, useLocation } from 'react-router-dom'
 import { useContext, useState, useEffect } from 'react'
 import { SocketContext } from '../context/SocketContext';
 import { useNavigate } from 'react-router-dom'
-import LiveTracking from '../components/LiveTracking';
+// import LiveTracking from '../components/LiveTracking';
+import PickupDestinationDirection from '../components/PickupDestinationDirection';
 
 const Riding = () => {
-
+    //
     const location = useLocation()
     const { ride } = location.state || {}
     const [isRideEnded, setIsRideEnded] = useState(false)
@@ -23,7 +24,7 @@ const Riding = () => {
         if (isRideEnded) {
             navigate('/home')
         }
-      }, [isRideEnded])
+    }, [isRideEnded])
 
     return (
         <div className='h-screen'>
@@ -31,7 +32,10 @@ const Riding = () => {
                 <i className="text-lg font-medium ri-home-5-line"></i>
             </Link>
             <div className='h-1/2'>
-               <LiveTracking />
+                <PickupDestinationDirection
+                    pickup={ride?.pickup}
+                    destination={ride?.destination}
+                />
             </div>
             <div className='h-1/2 p-4'>
                 <div className='flex items-center justify-between'>
