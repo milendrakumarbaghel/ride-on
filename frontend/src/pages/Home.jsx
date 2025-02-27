@@ -11,11 +11,11 @@ import VehiclePanel from '../components/VehiclePanel';
 import ConfirmRide from '../components/ConfirmRide';
 import LookingForDriver from '../components/LookingForDriver';
 import WaitingForDriver from '../components/WaitingForDriver';
-import LiveTracking from '../components/LiveTracking'
 import { useContext } from 'react';
 
 import { SocketContext } from '../context/SocketContext';
 import { UserDataContext } from '../context/UserContext';
+import MapDirectionTracker from '../components/MapDirectionTracker';
 
 
 const Home = () => {
@@ -48,7 +48,7 @@ const Home = () => {
   const { user } = useContext(UserDataContext);
 
   useEffect(() => {
-    socket.emit("join", {userType: "user", userId: user._id});
+    socket.emit("join", { userType: "user", userId: user._id });
   }, [user])
 
   socket.on('ride-confirmed', ride => {
@@ -233,7 +233,10 @@ const Home = () => {
       <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="uber-logo" className="w-16 absolute left-5 top-5" />
 
       <div className='h-4/6 w-screen'>
-        <LiveTracking />
+        <MapDirectionTracker
+          pickup={ride?.pickup}
+          destination={ride?.destination}
+        />
       </div>
 
       <div className='h-full flex flex-col justify-end absolute top-0 w-full'>

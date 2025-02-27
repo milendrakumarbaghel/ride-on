@@ -5,8 +5,7 @@ import { useState } from 'react'
 import { useRef } from 'react'
 import { useGSAP } from "@gsap/react";
 import gsap from 'gsap'
-// import LiveTracking from '../components/LiveTracking'
-import PickupDestinationDirection from '../components/PickupDestinationDirection';
+import MapDirectionTracker from '../components/MapDirectionTracker'
 
 
 
@@ -44,7 +43,7 @@ const CaptainRiding = () => {
             </div>
 
             <div className='h-4/5'>
-                <PickupDestinationDirection
+                <MapDirectionTracker
                     pickup={rideData?.pickup}
                     destination={rideData?.destination}
                 />

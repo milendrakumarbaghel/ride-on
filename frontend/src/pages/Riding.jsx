@@ -3,8 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useContext, useState, useEffect } from 'react'
 import { SocketContext } from '../context/SocketContext';
 import { useNavigate } from 'react-router-dom'
-// import LiveTracking from '../components/LiveTracking';
-import PickupDestinationDirection from '../components/PickupDestinationDirection';
+import MapDirectionTracker from '../components/MapDirectionTracker';
 
 const Riding = () => {
     //
@@ -32,7 +31,7 @@ const Riding = () => {
                 <i className="text-lg font-medium ri-home-5-line"></i>
             </Link>
             <div className='h-1/2'>
-                <PickupDestinationDirection
+                <MapDirectionTracker
                     pickup={ride?.pickup}
                     destination={ride?.destination}
                 />

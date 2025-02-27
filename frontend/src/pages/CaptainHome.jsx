@@ -13,7 +13,7 @@ import axios from 'axios';
 import { useEffect, useContext } from 'react'
 import { SocketContext } from '../context/SocketContext'
 import { CaptainDataContext } from '../context/CaptainContext'
-import LiveTracking from '../components/LiveTracking'
+import MapDirectionTracker from '../components/MapDirectionTracker'
 
 
 
@@ -64,7 +64,7 @@ const CaptainHome = () => {
     updateLocation();
 
     // return () => clearInterval(locationInterval);
-  }, [ captain ])
+  }, [captain])
 
   socket.on('new-ride', (data) => {
     console.log(data);
@@ -124,7 +124,10 @@ const CaptainHome = () => {
       </div>
 
       <div className='h-3/5'>
-        <LiveTracking />
+        <MapDirectionTracker
+          pickup={ride?.pickup}
+          destination={ride?.destination}
+        />
       </div>
 
       <div className='h-2/5 p-6'>
