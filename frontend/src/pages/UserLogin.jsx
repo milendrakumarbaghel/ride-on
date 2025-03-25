@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import { UserDataContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import rideon from "../assets/ride-on.png";
 
 const UserLogin = () => {
 
@@ -56,7 +57,7 @@ const UserLogin = () => {
     return (
         <div className='h-screen p-7 flex flex-col justify-between'>
             <div>
-                <img src='https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png' alt='uber-logo' className='w-16 mb-12' />
+                <img src={rideon} alt='Ride On' className='w-16 mb-12' />
 
                 <form onSubmit={(e) => {
                     submitHandler(e);

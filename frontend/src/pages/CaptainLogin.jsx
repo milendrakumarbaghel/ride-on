@@ -5,6 +5,7 @@ import { CaptainDataContext } from '../context/CaptainContext'
 import { useContext } from 'react'
 import axios from 'axios'
 import { useEffect } from 'react'
+import rideon from "../assets/ride-on.png";
 
 const CaptainLogin = () => {
 
@@ -55,7 +56,8 @@ const CaptainLogin = () => {
     return (
         <div className='h-screen p-7 flex flex-col justify-between'>
             <div>
-                <img src='https://www.svgrepo.com/show/505031/uber-driver.svg' alt='uber-logo' className='w-20 ' />
+                {/* <img src='https://drive.google.com/file/d/1lA5hzub1xKH5vqmb4500jPA3PzlEVZxD/view?usp=sharing' alt='uber-logo' className='w-20 ' /> */}
+                <img src={rideon} alt='Ride On' className='w-20 mb-12' />
 
                 <form onSubmit={(e) => {
                     submitHandler(e);

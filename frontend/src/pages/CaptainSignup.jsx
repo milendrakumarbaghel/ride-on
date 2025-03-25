@@ -6,6 +6,7 @@ import { useContext } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import rideon from "../assets/ride-on.png";
 
 const CaptainSignup = () => {
 
@@ -67,7 +68,8 @@ const CaptainSignup = () => {
   return (
     <div className='h-screen p-7 flex flex-col justify-between'>
         <div>
-            <img src='https://www.svgrepo.com/show/505031/uber-driver.svg' alt='uber-logo' className='w-16 mb-5'/>
+            {/* <img src='https://drive.google.com/file/d/1lA5hzub1xKH5vqmb4500jPA3PzlEVZxD/view?usp=sharing' alt='uber-logo' className='w-16 mb-5'/> */}
+            <img src={rideon} alt='Ride On' className='w-16 mb-4' />
 
             <form onSubmit={(e) => {
                 // e.preventDefault();

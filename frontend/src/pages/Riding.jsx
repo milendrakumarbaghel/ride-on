@@ -4,6 +4,7 @@ import { useContext, useState, useEffect } from 'react'
 import { SocketContext } from '../context/SocketContext';
 import { useNavigate } from 'react-router-dom'
 import MapDirectionTracker from '../components/MapDirectionTracker';
+import rideon from "../assets/ride-on.png";
 
 const Riding = () => {
     //
