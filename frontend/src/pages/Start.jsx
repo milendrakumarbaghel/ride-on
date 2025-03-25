@@ -10,7 +10,7 @@ const Start = () => {
             {/* <img src='https://drive.google.com/file/d/1lA5hzub1xKH5vqmb4500jPA3PzlEVZxD/view?usp=sharing' alt='uber-logo' className='w-16 ml-8'/> */}
             <img src={rideon} alt='Ride On' className='w-16 ml-8' />
             <div className='bg-white pb-7 py-4 px-4'>
-                <h2 className='text-[30px] font-bold'>Get Started with Uber</h2>
+                <h2 className='text-[30px] font-bold'>Get Started with Ride-On</h2>
                 <Link to='/login' className='flex items-center justify-center w-full bg-black text-white py-3 rounded-lg mt-5'>Continue</Link>
             </div>
         </div>
