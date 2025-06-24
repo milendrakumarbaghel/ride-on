@@ -54,58 +54,82 @@ const CaptainLogin = () => {
     }
 
     return (
-        <div className='h-screen p-7 flex flex-col justify-between'>
-            <div>
-                {/* <img src='https://drive.google.com/file/d/1lA5hzub1xKH5vqmb4500jPA3PzlEVZxD/view?usp=sharing' alt='uber-logo' className='w-20 ' /> */}
-                <img src={rideon} alt='Ride On' className='w-20 mb-12' />
+        <div className='min-h-screen w-full px-4 py-6 sm:px-6 sm:py-8 md:px-8 lg:px-12 xl:px-16 flex flex-col justify-between'>
+            {/* Main Content Container */}
+            <div className='w-full max-w-md mx-auto flex-1 flex flex-col justify-center'>
+                {/* Logo */}
+                <div className='text-center mb-8 sm:mb-10 md:mb-12'>
+                    <img
+                        src={rideon}
+                        alt='Ride On'
+                        className='w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 mx-auto'
+                    />
+                </div>
 
+                {/* Login Form */}
                 <form onSubmit={(e) => {
                     submitHandler(e);
-                }}>
-                    <h3 className='text-lg font-medium mb-2'>Enter your email</h3>
-                    <input
-                        required
-                        value={email}
-                        onChange={(e) => {
-                            setEmail(e.target.value)
-                        }}
-                        type='email'
-                        placeholder='Email'
-                        className='bg-[#eeeeee] mb-7 rounded px-4 py-2 border w-full text-lg placeholder:text-base'
-                    />
+                }} className='space-y-4 sm:space-y-5 md:space-y-6'>
 
-                    <h3 className='text-lg font-medium mb-2'>Enter your password</h3>
-                    <input
-                        required
-                        value={password}
-                        onChange={(e) => {
-                            setPassword(e.target.value)
-                        }}
-                        type='password'
-                        placeholder='Password'
-                        className='bg-[#eeeeee] mb-7 rounded px-4 py-2 border w-full text-lg placeholder:text-base'
-                    />
+                    {/* Email Field */}
+                    <div>
+                        <h3 className='text-base sm:text-lg font-medium mb-2 text-gray-700'>
+                            Enter your email
+                        </h3>
+                        <input
+                            required
+                            value={email}
+                            onChange={(e) => {
+                                setEmail(e.target.value)
+                            }}
+                            type='email'
+                            placeholder='Email'
+                            className='bg-gray-100 rounded-lg px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-200 w-full text-base sm:text-lg placeholder:text-sm sm:placeholder:text-base focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200'
+                        />
+                    </div>
 
+                    {/* Password Field */}
+                    <div>
+                        <h3 className='text-base sm:text-lg font-medium mb-2 text-gray-700'>
+                            Enter your password
+                        </h3>
+                        <input
+                            required
+                            value={password}
+                            onChange={(e) => {
+                                setPassword(e.target.value)
+                            }}
+                            type='password'
+                            placeholder='Password'
+                            className='bg-gray-100 rounded-lg px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-200 w-full text-base sm:text-lg placeholder:text-sm sm:placeholder:text-base focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200'
+                        />
+                    </div>
+
+                    {/* Login Button */}
                     <button
                         type='submit'
-                        className='bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2 border w-full text-lg placeholder:text-base'>
+                        className='bg-gray-900 hover:bg-gray-800 text-white font-semibold rounded-lg px-4 py-2.5 sm:py-3 w-full text-base sm:text-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 mt-6 sm:mt-8'>
                         Login
                     </button>
                 </form>
-                <p className='text-center'>
-                    Join a fleet? <Link
+
+                {/* Sign up link */}
+                <p className='text-center text-sm sm:text-base text-gray-600 mt-4 sm:mt-6'>
+                    Join a fleet?
+                    <Link
                         to='/captain-signup'
-                        className='text-blue-600'
+                        className='text-blue-600 hover:text-blue-700 font-medium ml-1 transition-colors duration-200'
                     >
                         Register as a Captain
                     </Link>
                 </p>
             </div>
 
-            <div>
+            {/* User Login Button */}
+            <div className='w-full max-w-md mx-auto mt-8 sm:mt-12'>
                 <Link
                     to='/login'
-                    className='flex items-center justify-center bg-[#d5622d] text-white font-semibold mb-5 rounded px-4 py-2 border w-full text-lg placeholder:text-base'>
+                    className='flex items-center justify-center bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-lg px-4 py-2.5 sm:py-3 w-full text-base sm:text-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2'>
                     Sign in as User
                 </Link>
             </div>
