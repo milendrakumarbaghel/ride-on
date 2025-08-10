@@ -14,7 +14,7 @@ import { useEffect, useContext } from 'react'
 import { SocketContext } from '../context/SocketContext'
 import { CaptainDataContext } from '../context/CaptainContext'
 import MapDirectionTracker from '../components/MapDirectionTracker'
-
+import AppHeader from '../components/AppHeader'
 
 
 const CaptainHome = () => {
@@ -115,16 +115,11 @@ const CaptainHome = () => {
   return (
     <div className='h-screen'>
 
-      <div className='fixed p-6 top-0  flex items-center justify-between w-screen'>
-        {/* <img className='w-16' src="https://drive.google.com/file/d/1lA5hzub1xKH5vqmb4500jPA3PzlEVZxD/view?usp=sharing" alt="" /> */}
-        <img src={rideon} alt='Ride On' className='w-16' />
+      {/* Shared Header */}
+      <AppHeader />
 
-        <Link to='/home' className='h10 w-10 bg-white flex items-center justify-center rounded-full'>
-          <i className="text-lg font-medium ri-logout-box-r-line"></i>
-        </Link>
-      </div>
-
-      <div className='h-3/5'>
+      {/* Map + Content offset for header height */}
+      <div className='h-3/5 pt-20'>
         <MapDirectionTracker
           pickup={ride?.pickup}
           destination={ride?.destination}

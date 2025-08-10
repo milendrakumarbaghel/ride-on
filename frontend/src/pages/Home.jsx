@@ -17,6 +17,7 @@ import rideon from "../assets/ride-on.png";
 import { SocketContext } from '../context/SocketContext';
 import { UserDataContext } from '../context/UserContext';
 import MapDirectionTracker from '../components/MapDirectionTracker';
+import AppHeader from '../components/AppHeader';
 
 
 const Home = () => {
@@ -231,9 +232,8 @@ const Home = () => {
 
   return (
     <div className='h-screen relative overflow-hidden'>
-      <img src="https://drive.google.com/file/d/1lA5hzub1xKH5vqmb4500jPA3PzlEVZxD/view?usp=sharing" alt="uber-logo" className="w-16 absolute left-5 top-5" />
-
-      <div className='h-4/6 w-screen'>
+      <AppHeader />
+      <div className='h-4/6 w-screen pt-20'>
         <MapDirectionTracker
           pickup={ride?.pickup}
           destination={ride?.destination}
