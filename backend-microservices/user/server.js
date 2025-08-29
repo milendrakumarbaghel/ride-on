@@ -44,7 +44,7 @@ connectToDatabase();
 
 // Start the server
 server.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`User server is running on http://localhost:${PORT}`);
 });
 
 // Export app for testing or further configuration

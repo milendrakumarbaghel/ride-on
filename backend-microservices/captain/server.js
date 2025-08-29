@@ -28,7 +28,7 @@ const PORT = process.env.PORT || 4001;
 
 // Define routes
 app.get('/', (req, res) => {
-    res.send('Hi there! Welcome to the User server.');
+    res.send('Hi there! Welcome to the Captain server.');
 });
 
 // routes
@@ -44,7 +44,7 @@ connectToDatabase();
 
 // Start the server
 server.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Captain server is running on http://localhost:${PORT}`);
 });
 
 // Export app for testing or further configuration
