@@ -5,8 +5,8 @@ dotenv.config();
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
-const userRoutes = require('./routes/user.routes');
-// const captainRoutes = require('./routes/captain.routes');
+// const userRoutes = require('./routes/user.routes');
+const captainRoutes = require('./routes/captain.routes');
 // const mapsRoutes = require('./routes/maps.routes');
 // const rideRoutes = require('./routes/ride.routes');
 
@@ -31,9 +31,9 @@ app.get('/', (req, res) => {
     res.send('Hi there! Welcome to the User server.');
 });
 
-// Use routes
-app.use('/users', userRoutes);
-// app.use('/captains', captainRoutes);
+// routes
+// app.use('/users', userRoutes);
+app.use('/captains', captainRoutes);
 // app.use('/maps', mapsRoutes);
 // app.use('/rides', rideRoutes);
 
