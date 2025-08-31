@@ -3,7 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import { connectToDatabase } from './db.js';
+import connectToDatabase from './db/db.js';
 import userRoutes from './routes/user.routes.js';
 
 dotenv.config();
@@ -18,6 +18,6 @@ const PORT = process.env.USER_SERVICE_PORT || 4001;
 app.get('/health', (req, res) => res.json({ ok: true, service: 'user-service' }));
 app.use('/', userRoutes);
 
-await connectToDatabase('user-service');
+await connectToDatabase();
 
-app.listen(PORT, () => console.log(`user-service on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`user-service started on http://localhost:${PORT}`));

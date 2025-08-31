@@ -26,6 +26,6 @@ router.get('/profile', authCaptain, getCaptainProfile);
 router.get('/logout', authCaptain, logoutCaptain);
 router.post('/location', authCaptain, updateLocation);
 router.get('/captains-in-radius', getCaptainsInRadius);
-router.put('/toggle-availability', authCaptain, captainController.toggleAvailability);
+router.put('/toggle-availability', authCaptain, toggleAvailability);
 
 export default router;

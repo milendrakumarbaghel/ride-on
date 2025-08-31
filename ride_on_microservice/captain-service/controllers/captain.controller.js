@@ -60,7 +60,7 @@ export async function logoutCaptain(req, res) {
     }
 }
 
-module.exports.toggleAvailability = async (req, res, next) => {
+export const toggleAvailability = async (req, res, next) => {
     try {
         const captain = await captainModel.findById(req.captain._id);
 

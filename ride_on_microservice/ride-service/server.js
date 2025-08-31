@@ -3,7 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import { connectToDatabase } from './db.js';
+import connectToDatabase from './db/db.js';
 import rideRoutes from './routes/ride.routes.js';
 
 dotenv.config();

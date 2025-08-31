@@ -1,16 +1,25 @@
+// db/db.js
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost:27017/ride_on_micro';
+dotenv.config();
 
-export async function connectToDatabase() {
-    const options = { connectTimeoutMS: 10000, retryWrites: true };
-    try {
-        await mongoose.connect(MONGODB_URL, options);
-        console.log('✅ [user-service] connected to MongoDB');
-    } catch (err) {
-        console.error('❌ [user-service] MongoDB error:', err.message);
-        setTimeout(connectToDatabase, 5000);
-    }
-}
+const MONGODB_URL = process.env.MONGODB_URL;
 
-export default mongoose;
+const options = {
+  connectTimeoutMS: 10000,
+  retryWrites: true,
+};
+
+const connectToDatabase = async () => {
+  try {
+    await mongoose.connect(MONGODB_URL, options);
+    console.log('✅ Connected to MongoDB successfully');
+  } catch (error) {
+    console.error('❌ Error connecting to MongoDB:', error.message);
+    console.log('Retrying connection in 5 seconds...');
+    setTimeout(connectToDatabase, 5000);
+  }
+};
+
+export default connectToDatabase;
