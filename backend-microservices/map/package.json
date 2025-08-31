@@ -1,5 +1,5 @@
 {
-  "name": "captain",
+  "name": "map",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -12,7 +12,6 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "amqplib": "^0.10.9",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",

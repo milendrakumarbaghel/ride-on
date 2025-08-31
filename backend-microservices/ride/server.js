@@ -5,8 +5,7 @@ dotenv.config();
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
-const captainRoutes = require('./routes/captain.routes');
-
+const rideRoutes = require('./routes/ride.routes');
 
 // Initialize the app
 const app = express();
@@ -26,12 +25,11 @@ const PORT = process.env.PORT || 4001;
 
 // Define routes
 app.get('/', (req, res) => {
-    res.send('Hi there! Welcome to the Captain server.');
+    res.send('Hi there! Welcome to the User server.');
 });
 
 // routes
-app.use('/captains', captainRoutes);
-
+app.use('/rides', rideRoutes);
 
 // Connecting with database
 const connectToDatabase = require('./db/database');
@@ -40,7 +38,7 @@ connectToDatabase();
 
 // Start the server
 server.listen(PORT, () => {
-    console.log(`Captain server is running on http://localhost:${PORT}`);
+    console.log(`User server is running on http://localhost:${PORT}`);
 });
 
 // Export app for testing or further configuration

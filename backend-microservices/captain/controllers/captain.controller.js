@@ -90,3 +90,16 @@ module.exports.logoutCaptain = async (req, res, next) => {
         res.status(400).json({ message: error.message });
     }
 }
+
+module.exports.toggleAvailability = async (req, res, next) => {
+    try {
+        const captain = await captainModel.findById(req.captain._id);
+
+        captain.status = captain.status === 'active' ? 'inactive' : 'active';
+        await captain.save();
+
+        res.status(200).json({ message: 'Status toggled', status: captain.status });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}

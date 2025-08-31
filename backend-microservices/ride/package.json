@@ -1,5 +1,5 @@
 {
-  "name": "captain",
+  "name": "ride",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -13,6 +13,7 @@
   "type": "commonjs",
   "dependencies": {
     "amqplib": "^0.10.9",
+    "axios": "^1.11.0",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
