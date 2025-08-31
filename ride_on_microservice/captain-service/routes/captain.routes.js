@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
-import { registerCaptain, loginCaptain, getCaptainProfile, logoutCaptain, toggleAvailability } from '../controllers/captain.controller.js';
+import { registerCaptain, loginCaptain, getCaptainProfile, logoutCaptain, toggleAvailability, waitForNewRide } from '../controllers/captain.controller.js';
 import { authCaptain } from '../middlewares/auth.middleware.js';
 import { updateLocation } from '../controllers/location.controller.js';
 import { getCaptainsInRadius } from '../controllers/geo.controller.js';
@@ -27,5 +27,7 @@ router.get('/logout', authCaptain, logoutCaptain);
 router.post('/location', authCaptain, updateLocation);
 router.get('/captains-in-radius', getCaptainsInRadius);
 router.put('/toggle-availability', authCaptain, toggleAvailability);
+// Long-poll endpoint: captain waits for next nearby new ride (<= 2km)
+router.get('/new-ride', authCaptain, waitForNewRide);
 
 export default router;

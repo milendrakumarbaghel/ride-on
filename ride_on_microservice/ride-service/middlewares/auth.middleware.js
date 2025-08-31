@@ -4,8 +4,8 @@ export async function authUser(req, res, next) {
     try {
         const token = req.cookies?.token || req.headers.authorization?.split(' ')[1];
         if (!token) return res.status(401).json({ message: 'Unauthorized' });
-        const base = process.env.USER_SERVICE_URL || 'http://localhost:4001';
-        const response = await axios.get(`${base}/profile`, {
+        const base = process.env.API_GATEWAY_URL || 'http://localhost:4000';
+        const response = await axios.get(`${base}/users/profile`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         const user = response.data;
@@ -22,8 +22,8 @@ export async function authCaptain(req, res, next) {
     try {
         const token = req.cookies?.token || req.headers.authorization?.split(' ')[1];
         if (!token) return res.status(401).json({ message: 'Unauthorized' });
-        const base = process.env.CAPTAIN_SERVICE_URL || 'http://localhost:4002';
-        const response = await axios.get(`${base}/profile`, {
+        const base = process.env.API_GATEWAY_URL || 'http://localhost:4000';
+        const response = await axios.get(`${base}/captains/profile`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         const captain = response.data?.captain || response.data; // captain-service returns { captain }

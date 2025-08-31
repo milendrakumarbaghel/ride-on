@@ -8,6 +8,17 @@ services:
     volumes:
       - mongo_data:/data/db
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: unless-stopped
+    ports:
+      - '5672:5672'   # RabbitMQ broker
+      - '15672:15672' # Management dashboard
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+
   gateway:
     build: ./gateway
     ports:
@@ -26,6 +37,7 @@ services:
     env_file: ./.env
     depends_on:
       - mongo
+      - rabbitmq
 
   captain-service:
     build: ./services/captain-service
@@ -34,6 +46,7 @@ services:
     env_file: ./.env
     depends_on:
       - mongo
+      - rabbitmq
 
   maps-service:
     build: ./services/maps-service
@@ -49,6 +62,7 @@ services:
     depends_on:
       - mongo
       - maps-service
+      - rabbitmq
 
   realtime-service:
     build: ./services/realtime-service
@@ -57,6 +71,7 @@ services:
     env_file: ./.env
     depends_on:
       - mongo
+      - rabbitmq
 
 volumes:
   mongo_data:

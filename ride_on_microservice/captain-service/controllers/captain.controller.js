@@ -2,6 +2,8 @@ import blacklistTokenModel from '../models/blacklistToken.model.js';
 import captainModel from '../models/captain.model.js';
 import { createCaptain } from '../services/captain.service.js';
 import { validationResult } from 'express-validator';
+import axios from 'axios';
+import { subscribeToQueue } from '../services/rabbit.js';
 
 export async function registerCaptain(req, res) {
     try {
@@ -72,3 +74,29 @@ export const toggleAvailability = async (req, res, next) => {
         res.status(400).json({ message: error.message });
     }
 }
+
+
+const pendingRequests = [];
+
+
+export const waitForNewRide = async (req, res) => {
+    // Set timeout for long polling (e.g., 30 seconds)
+    req.setTimeout(30000, () => {
+        res.status(204).end(); // No Content
+    });
+
+    // Add the response object to the pendingRequests array
+    pendingRequests.push(res);
+};
+
+subscribeToQueue("new-ride", (data) => {
+    const rideData = JSON.parse(data);
+
+    // Send the new ride data to all pending requests
+    pendingRequests.forEach(res => {
+        res.json(rideData);
+    });
+
+    // Clear the pending requests
+    pendingRequests.length = 0;
+});

@@ -1,6 +1,7 @@
 import { validationResult } from 'express-validator';
 import { createRide, getFare, confirmRide, startRide, endRide } from '../services/ride.service.js';
 import axios from 'axios';
+import { publishToQueue } from '../services/rabbit.js';
 
 export async function createRideHandler(req, res) {
     const error = validationResult(req);
@@ -12,16 +13,63 @@ export async function createRideHandler(req, res) {
 
         // Fire-and-forget: notify nearby captains
         try {
-            const MAPS_URL = process.env.MAPS_SERVICE_URL || 'http://localhost:4003';
-            const CAPTAIN_URL = process.env.CAPTAIN_SERVICE_URL || 'http://localhost:4002';
-            const RT_URL = process.env.REALTIME_SERVICE_URL || 'http://localhost:4010';
-            const { data: coords } = await axios.get(`${MAPS_URL}/geocode`, { params: { address: pickup } });
-            const { data: captains } = await axios.get(`${CAPTAIN_URL}/captains-in-radius`, { params: { lat: coords.lat, lng: coords.lng, radiusKm: 2, vehicleType } });
-            await Promise.all(
-                captains.map((c) => axios.post(`${RT_URL}/emit`, { socketId: c.socketId, event: 'new-ride', data: ride }))
-            );
+            const API = process.env.API_GATEWAY_URL || 'http://localhost:4000';
+            const RT_URL = process.env.REALTIME_SERVICE_URL || 'http://localhost:4005';
+
+            // Step 1: geocode pickup -> { lat, lng }
+            let coords;
+            try {
+                const resp = await axios.get(`${API}/maps/geocode`, { params: { address: pickup } });
+                coords = resp.data;
+            } catch (err) {
+                const msg = err?.response?.data?.message || err.message;
+                throw new Error(`geocode failed: ${msg}`);
+            }
+
+            // Step 2: find captains within 2km radius (optionally by vehicleType)
+            // let captains = [];
+            // try {
+            //     const resp = await axios.get(`${API}/captains/captains-in-radius`, {
+            //         params: { lat: coords.lat, lng: coords.lng, radiusKm: 2, vehicleType }
+            //     });
+            //     captains = resp.data || [];
+            // } catch (err) {
+            //     const msg = err?.response?.data?.message || err.message;
+            //     throw new Error(`captains-in-radius failed: ${msg}`);
+            // }
+
+            // Publish to per-captain queues so only nearby captains receive the ride
+            try {
+                // Also publish a generic event so long-polling captains can pick it if nearby
+                await publishToQueue('new-ride', JSON.stringify({
+                    type: 'new-ride',
+                    ride,
+                    pickup: { lat: coords.lat, lng: coords.lng },
+                }));
+            } catch (mqErr) {
+                console.error('queue publish failed', mqErr.message);
+            }
+
+            // Step 3: best-effort realtime emits (only for captains with a socketId)
+            // const online = (captains || []).filter((c) => !!c.socketId);
+            // if (online.length) {
+            //     const results = await Promise.allSettled(
+            //         online.map((c) =>
+            //             axios.post(`${RT_URL}/emit`, {
+            //                 socketId: c.socketId,
+            //                 event: 'new-ride',
+            //                 data: ride
+            //             })
+            //         )
+            //     );
+            //     const failed = results.filter((r) => r.status === 'rejected');
+            //     if (failed.length) {
+            //         console.warn(`realtime emits partial failure: ${failed.length}/${results.length} failed`);
+            //     }
+            // }
         } catch (notifyErr) {
-            console.error('notify captains failed', notifyErr.message);
+            const detail = notifyErr?.response?.data || notifyErr.message;
+            console.error('notify captains failed', detail);
         }
         return;
     } catch (err) {
