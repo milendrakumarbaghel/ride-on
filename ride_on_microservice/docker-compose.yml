@@ -1,0 +1,62 @@
+version: '3.9'
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+
+  gateway:
+    build: ./gateway
+    ports:
+      - '4000:4000'
+    env_file: ./.env
+    depends_on:
+      - user-service
+      - captain-service
+      - maps-service
+      - ride-service
+
+  user-service:
+    build: ./services/user-service
+    ports:
+      - '4001:4001'
+    env_file: ./.env
+    depends_on:
+      - mongo
+
+  captain-service:
+    build: ./services/captain-service
+    ports:
+      - '4002:4002'
+    env_file: ./.env
+    depends_on:
+      - mongo
+
+  maps-service:
+    build: ./services/maps-service
+    ports:
+      - '4003:4003'
+    env_file: ./.env
+
+  ride-service:
+    build: ./services/ride-service
+    ports:
+      - '4004:4004'
+    env_file: ./.env
+    depends_on:
+      - mongo
+      - maps-service
+
+  realtime-service:
+    build: ./services/realtime-service
+    ports:
+      - '4010:4010'
+    env_file: ./.env
+    depends_on:
+      - mongo
+
+volumes:
+  mongo_data:
