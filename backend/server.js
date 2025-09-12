@@ -29,7 +29,7 @@ const PORT = process.env.PORT || 5000;
 
 // Define routes
 app.get('/', (req, res) => {
-    res.send('Hi there! Welcome to the server.');
+    res.send('Hi there! Welcome to the ride-on server.');
 });
 
 // Use routes
