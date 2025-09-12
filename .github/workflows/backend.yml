@@ -1,7 +1,7 @@
 # Backend CI/CD with Self-hosted Runner
 # Always resets EC2 repo to latest GitHub code before deployment
 
-name: Backend CI
+name: Backend CI/CD
 
 on:
   push:
@@ -18,7 +18,14 @@ jobs:
         node-version: [22.x]
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Remove old code
+      run: |
+        rm -rf ~/ride-on   # wipe old folder to avoid merge conflicts
+
+    - name: Checkout repo into ~/ride-on
+      uses: actions/checkout@v4
+      with:
+        path: ~/ride-on
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
@@ -28,11 +35,11 @@ jobs:
 
     - name: Install dependencies
       run: |
-        cd backend
+        cd ~/ride-on/backend
         npm install
 
     - name: Deploy backend
       run: |
-        cd backend
+        cd ~/ride-on/backend
         npm install --production
         pm2 restart rideon-server || pm2 start server.js --name rideon-server
