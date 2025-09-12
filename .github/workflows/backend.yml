@@ -33,10 +33,6 @@ jobs:
 
     - name: Deploy backend
       run: |
-        cd ~/ride-on
-        git fetch origin master
-        git reset --hard origin/master   # discard local changes and match remote
-        git clean -fd                    # remove untracked files if any
         cd backend
         npm install --production
         pm2 restart rideon-server || pm2 start server.js --name rideon-server
