@@ -35,7 +35,7 @@ jobs:
       run: |
         cd ~/ride-on
         git fetch origin master
-        git reset --hard origin/master   # force reset to remote, no merge issues
+        git reset --hard origin/master   # discard local changes and match remote
         git clean -fd                    # remove untracked files if any
         cd backend
         npm install --production
