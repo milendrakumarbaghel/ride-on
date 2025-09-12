@@ -18,26 +18,35 @@ jobs:
         node-version: [22.x]
 
     steps:
-    - name: Remove old repo folder (optional, avoids merge conflicts)
-      run: |
-        rm -rf ~/ride-on
+    # Clean up previous repo to avoid merge conflicts
+    - name: Remove old repo folder
+      run: rm -rf ~/ride-on
 
-    - name: Checkout repo directly into ~/ride-on
+    # Checkout directly into ~/ride-on
+    - name: Checkout repo
       uses: actions/checkout@v4
       with:
         path: ~/ride-on
 
+    # Set up Node.js
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
+    # Install all dependencies
     - name: Install dependencies
       run: |
         cd ~/ride-on/backend
         npm install
 
+    # Create .env from GitHub secret (optional, for production)
+    - name: Set production environment
+      run: |
+        echo "${{ secrets.BACKEND_PRODUCTION_ENV }}" > ~/ride-on/backend/.env
+
+    # Build and deploy
     - name: Deploy backend
       run: |
         cd ~/ride-on/backend
