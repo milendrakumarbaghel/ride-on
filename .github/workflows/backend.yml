@@ -1,0 +1,44 @@
+# This workflow will install dependencies, run tests,
+# and then deploy the backend directly on your EC2 self-hosted runner.
+
+name: Backend CI/CD
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - "backend/**"
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [22.x]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: |
+        cd backend
+        npm install
+
+    - name: Create .env file from GitHub Secret
+      run: |
+        cd backend
+        echo "${{ secrets.BACKEND_PRODUCTION_ENV }}" > .env
+
+    - name: Deploy backend
+      run: |
+        cd backend
+        npm install --production
+        pm2 restart rideon-server || pm2 start server.js --name rideon-server
