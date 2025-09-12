@@ -35,7 +35,8 @@ jobs:
       run: |
         cd ~/ride-on
         git fetch origin master
-        git reset --hard origin/master   # ensures server always matches GitHub
+        git reset --hard origin/master   # force reset to remote, no merge issues
+        git clean -fd                    # remove untracked files if any
         cd backend
         npm install --production
-        pm2 restart backend || pm2 start server.js --name backend
+        pm2 restart rideon-server || pm2 start server.js --name rideon-server
