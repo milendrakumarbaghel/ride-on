@@ -43,7 +43,7 @@ const connectToDatabase = require('./db/database');
 connectToDatabase();
 
 initializeSocket(server);
-//CI/CD Check
+//CI/CD Check 1
 // Start the server
 server.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
