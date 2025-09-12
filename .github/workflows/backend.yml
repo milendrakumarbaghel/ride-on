@@ -39,6 +39,8 @@ jobs:
 
     - name: Deploy backend
       run: |
+        cd ~/ride-on                # go to your actual repo folder
+        git pull origin master      # get latest changes from GitHub
         cd backend
         npm install --production
         pm2 restart rideon-server || pm2 start server.js --name rideon-server
