@@ -26,7 +26,7 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v4
       with:
-        path: ~/ride-on
+        path: /home/ubuntu/ride-on
 
     # Set up Node.js
     - name: Use Node.js ${{ matrix.node-version }}
