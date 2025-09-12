@@ -18,10 +18,6 @@ jobs:
         node-version: [22.x]
 
     steps:
-    # Clean up previous repo to avoid merge conflicts
-    - name: Remove old repo folder
-      run: rm -rf ~/ride-on
-
     # Checkout directly into ~/ride-on
     - name: Checkout repo
       uses: actions/checkout@v4
