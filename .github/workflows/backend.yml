@@ -32,17 +32,17 @@ jobs:
     # Install all dependencies
     - name: Install dependencies
       run: |
-        cd ~/ride-on/backend
+        cd ~/ride-on/ride-on/backend
         npm install
 
     # Create .env from GitHub secret (optional, for production)
     - name: Set production environment
       run: |
-        echo "${{ secrets.BACKEND_PRODUCTION_ENV }}" > ~/ride-on/backend/.env
+        echo "${{ secrets.BACKEND_PRODUCTION_ENV }}" > ~/ride-on/ride-on/backend/.env
 
     # Build and deploy
     - name: Deploy backend
       run: |
-        cd ~/ride-on/backend
+        cd ~/ride-on/ride-on/backend
         npm install --production
         pm2 restart rideon-server || pm2 start server.js --name rideon-server
