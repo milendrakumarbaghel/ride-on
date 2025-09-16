@@ -38,7 +38,7 @@ const Start = () => {
           <div className="mb-6">
             <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg mb-4">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-sm text-gray-600 font-medium">Live & Ready 3</span>
+              <span className="text-sm text-gray-600 font-medium">Live & Ready 4</span>
             </div>
           </div>
 
