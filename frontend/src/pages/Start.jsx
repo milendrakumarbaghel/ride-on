@@ -8,12 +8,12 @@ const Start = () => {
     <div className="h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-      
+
       {/* Animated Background Shapes */}
       <div className="absolute top-20 left-10 w-32 h-32 bg-blue-200 rounded-full opacity-20 animate-pulse"></div>
       <div className="absolute top-40 right-20 w-24 h-24 bg-indigo-200 rounded-full opacity-20 animate-pulse delay-1000"></div>
       <div className="absolute bottom-40 left-20 w-20 h-20 bg-purple-200 rounded-full opacity-20 animate-pulse delay-2000"></div>
-      
+
       {/* Header */}
       <header className="relative z-10 px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -38,12 +38,12 @@ const Start = () => {
           <div className="mb-6">
             <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg mb-4">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-sm text-gray-600 font-medium">Live & Ready</span>
+              {/* <span className="text-sm text-gray-600 font-medium">Live & Ready</span> */}
             </div>
           </div>
-          
+
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 leading-tight">
-            Your Journey, 
+            Your Journey,
             <span className="text-blue-600 block bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Our Priority</span>
           </h1>
           <p className="text-base md:text-lg text-gray-600 mb-6 max-w-2xl mx-auto leading-relaxed">
@@ -72,7 +72,7 @@ const Start = () => {
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Smart Location</h3>
               <p className="text-sm text-gray-600">AI-powered location detection for accurate pickup and drop-off</p>
             </div>
-            
+
             <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-1 text-center border border-gray-100">
               <div className="w-12 h-12 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-md">
                 <i className="ri-radar-line text-xl text-green-600"></i>
@@ -80,7 +80,7 @@ const Start = () => {
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Real-time Tracking</h3>
               <p className="text-sm text-gray-600">Live updates on driver location and estimated arrival time</p>
             </div>
-            
+
             <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-1 text-center border border-gray-100">
               <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-md">
                 <i className="ri-shield-check-line text-xl text-purple-600"></i>
