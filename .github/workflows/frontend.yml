@@ -44,7 +44,9 @@ jobs:
 
       # 5. Sync build folder to S3
       - name: Deploy to S3
-        run: aws s3 sync s3://rideon-bucket --delete
+        working-directory: ./frontend
+        run: |
+          aws s3 sync ./dist/ s3://rideon-bucket --delete
 
       # 6. Invalidate CloudFront cache
       - name: Invalidate CloudFront
