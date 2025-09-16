@@ -30,7 +30,7 @@ jobs:
       - name: Install and build
         working-directory: ./frontend
         run: |
-          echo "$FRONTEND_PRODUCTION_ENV" > .env
+          echo "$FRONTEND_ENV_VARS" > .env
           npm install
           npm run build
 
