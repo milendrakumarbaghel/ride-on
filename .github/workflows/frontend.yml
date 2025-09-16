@@ -1,0 +1,55 @@
+name: CI/CD Frontend to S3 + CloudFront
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - "frontend/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      FRONTEND_ENV_VARS: ${{ secrets.FRONTEND_PRODUCTION_ENV }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      S3_BUCKET: ${{ secrets.S3_BUCKET }}
+      CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+
+    steps:
+      # 1. Checkout repo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Setup Node
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      # 3. Install dependencies & build React app (inside frontend folder)
+      - name: Install and build
+        working-directory: ./frontend
+        run: |
+          echo "$FRONTEND_PRODUCTION_ENV" > .env
+          npm install
+          npm run build
+
+      # 4. Configure AWS credentials
+      - name: Configure AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      # 5. Sync build folder to S3
+      - name: Deploy to S3
+        run: |
+          aws s3 sync frontend/build/ s3://$S3_BUCKET --delete
+
+      # 6. Invalidate CloudFront cache
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id $CLOUDFRONT_DISTRIBUTION_ID \
+            --paths "/*"
